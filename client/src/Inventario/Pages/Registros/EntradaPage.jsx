@@ -6,6 +6,7 @@ import { useProductos, useUsuarios } from '../../../hooks';
 export const EntradaPage = () => {
   const { productos } = useProductos();
   const { usuarios } = useUsuarios();
+
   const formik = useFormik({
     initialValues: {
       fecha: '',
@@ -19,8 +20,6 @@ export const EntradaPage = () => {
       cantidad: YUP.number()
         .required('La cantidad es requerida')
         .positive('El numero debe ser valido'),
-      producto: YUP.string().required('El numero es requerido'),
-      usuario: YUP.number().required('El numero de celular es requerido'),
     }),
 
     onSubmit: async (values) => {
@@ -83,20 +82,16 @@ export const EntradaPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   >
-                    {productos.map((producto) => (
+                    {productos.map((producto) => 
                       <option
                         key={producto.idProducto}
                         value={producto.idProducto}
                       >
                         {producto.nombreProducto}
                       </option>
-                    ))}
+                    )}
                   </select>
-                  {formik.touched.producto && formik.errors.producto ? (
-                    <div className='alert alert-danger'>
-                      {formik.errors.producto}
-                    </div>
-                  ) : null}
+           
 
                   <label>Usuario</label>
                   <select
@@ -107,17 +102,13 @@ export const EntradaPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   >
-                    {usuarios.map((usuario) => (
+                    {usuarios.map((usuario) => 
                       <option key={usuario.idUsuario} value={usuario.idUsuario}>
-                        {usuario.correo}
+                        {usuario.nombre + ' ' + usuario.apellidoPaterno + ' ' + usuario.apellidoMaterno}
                       </option>
-                    ))}
+                    )}
                   </select>
-                  {formik.touched.usuario && formik.errors.usuario ? (
-                    <div className='alert alert-danger'>
-                      {formik.errors.usuario}
-                    </div>
-                  ) : null}
+        
                   <div className='text-center my-5'>
                   <button  className='btn btn-primary btn-lg' type='submit'>Registrar</button>
                   </div>

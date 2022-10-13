@@ -10,6 +10,7 @@ export const useEntrada= () => {
     };
     getEntradas();
   }, [entradas]);
+
  const deleteEntrada= async (id) => {
     try {
       const response = await deleteEntradaRequest(id);

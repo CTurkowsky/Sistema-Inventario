@@ -19,7 +19,7 @@ CREATE TABLE Usuario(
 
 CREATE TABLE Area(
     idArea INTEGER PRIMARY KEY AUTO_INCREMENT,
-    nombreAreaVARCHAR VARCHAR(40) NOT NULL
+    nombreArea VARCHAR(40) NOT NULL
 );
 CREATE TABLE Producto (
     idProducto INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -44,3 +44,36 @@ CREATE TABLE Salida(
     area INTEGER, FOREIGN KEY(area)  REFERENCES Area(idArea),
     producto INTEGER, FOREIGN KEY(producto)  REFERENCES Producto(idProducto)
 );
+
+/* TRIGGER ENTRADAS */ 
+CREATE TRIGGER ingresos AFTER INSERT ON entrada
+FOR EACH ROW
+UPDATE producto set stock = stock + NEW.cantidad
+WHERE idProducto = NEW.producto;
+
+/* TRIGGER SALIDAS*/ 
+CREATE TRIGGER salidas AFTER INSERT ON salida
+FOR EACH ROW
+UPDATE producto   set  stock = stock - NEW.cantidad 
+WHERE idProducto = NEW.producto;
+
+
+/* OBTENER TODOS LOS VALORES DE PRODUCTO*/ 
+SELECT p.idProducto, p.nombreProducto, p.stock,  date_format(p.fecha, "%d-%m-%Y") AS fecha , m.nombreMarca, c.nombreCategoria
+FROM producto p
+INNER JOIN marca m ON p.marca = m.idMarca
+INNER JOIN categoria c ON p.categoria = c.idCategoria;
+
+/* OBTENER TODOS LOS VALORES DE ENTRADA */ 
+SELECT e.idEntrada, e.cantidad,  date_format(e.fecha , "%d-%m-%Y") AS fecha ,  p.nombreProducto, u.nombre
+FROM entrada e
+INNER JOIN producto p ON  e.producto = p.idProducto
+INNER JOIN usuario u ON e.usuario = u.idUsuario;
+              
+/* OBTENER TODOS LOS VALORES DE SALIDA */ 
+SELECT s.idSalida, s.cantidad, date_format(s.fecha  , "%d-%m-%Y") AS fecha  ,  p.nombreProducto, u.nombre, a.nombreArea
+FROM salida s
+INNER JOIN producto p ON  s.producto = p.idProducto
+INNER JOIN usuario u ON s.usuario = u.idUsuario
+INNER JOIN area a ON s.area = a.idArea;
+               

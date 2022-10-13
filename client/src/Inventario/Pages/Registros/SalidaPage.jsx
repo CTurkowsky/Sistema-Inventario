@@ -17,9 +17,7 @@ export const SalidaPage = () => {
     },
     validationSchema: YUP.object({
       fecha: YUP.date()
-        .required('La fecha  es requerida')
-        .min(new Date(), 'Fehca minima erro')
-        .max(new Date(), 'Ingresa Fecha Valida'),
+        .required('La fecha  es requerida'),
       cantidad: YUP.number()
         .required('La descripcion es requerido')
         .positive('El numero debe ser valido'),

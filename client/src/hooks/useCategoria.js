@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCategoriasRequest } from '../api/categoria.api';
+import { deleteCategoriaRequest, getCategoriasRequest } from '../api/categoria.api';
 
 export const useCategorias = () => {
   const [categorias, setCategorias] = useState([]);
@@ -10,8 +10,15 @@ export const useCategorias = () => {
     };
     getCategorias();
   }, [categorias]);
-
-  return {
-    categorias,
+ const deleteCategoria= async (id) => {
+    try {
+      const response = await deleteCategoriaRequest(id);
+      setCategorias(categoria.filter((categoria) => categoria.idCategoria!== id));
+    } catch (error) {
+      console.error(error);
+    }
   };
-};
+  return {
+    categorias,deleteCategoria
+  };
+}

@@ -29,4 +29,20 @@ export const getMarcas = async (req, res) => {
   }
 };
 
+export const deleteMarca = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      'DELETE FROM MARCA WHERE idMarca = ?',
+      [req.params.id]
+    );
+    if (result.affectedRows === 0)
+      return res.status(404).json({ message: 'Marca no encontrada' });
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+
+
 

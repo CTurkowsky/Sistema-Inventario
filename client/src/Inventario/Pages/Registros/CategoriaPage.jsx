@@ -34,7 +34,7 @@ export const CategoriaPage = () => {
             <div className='col-12 col-sm-7 col-md-6 m-auto'>
               <div className='card border-0 shadow'>
                 <div className='card-body'>
-                  <label className='form-floating my-4 p-2'>Marca</label>
+                  <label className='form-floating my-4 p-2'>Categoria</label>
                   <input
                     label='Nombre'
                     type='text'

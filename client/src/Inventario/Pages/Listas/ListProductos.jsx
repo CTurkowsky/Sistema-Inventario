@@ -8,20 +8,20 @@ export const ListProductos = () => {
   const navigate = useNavigate();
   const filteredProductos = () => {
     if (search.length === 0)
-      return productos.slice(currentPage, currentPage + 1);
+      return productos.slice(currentPage, currentPage + 10);
 
     const filtered = productos.filter(producto =>
       producto.nombreProducto.includes(search)
     );
-    return filtered.slice(currentPage, currentPage + 1);
+    return filtered.slice(currentPage, currentPage + 10);
   };
 
   const nextPage = () => {
-    if( productos.filter( producto => producto.nombreProducto.includes( search)).length > currentPage + 1)
-    setCurrentPage(currentPage + 1);
+    if( productos.filter( producto => producto.nombreProducto.includes( search)).length > currentPage + 10)
+    setCurrentPage(currentPage + 10);
   };
   const prevPage = () => {
-    if (currentPage > 0) setCurrentPage(currentPage - 1);
+    if (currentPage > 0) setCurrentPage(currentPage - 10);
   };
 
   const onSearchChange = ({ target }) => {

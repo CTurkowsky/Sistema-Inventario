@@ -51,7 +51,7 @@ export const Navbar = () => {
                 data-bs-toggle='dropdown'
                 aria-expanded='false'
               >
-                Prodcuto
+                Producto
               </a>
               <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
                 <li>
