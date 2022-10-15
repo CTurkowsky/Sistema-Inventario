@@ -2,8 +2,21 @@ import { Button, Grid, TextField, Alert } from '@mui/material';
 import { FormLayout } from '../../Layout/FormLayout';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
+import { useCategorias } from '../../../hooks';
 import { createCategoriaRequest } from '../../../api/categoria.api';
+import Swal from 'sweetalert2';
 export const CategoriaPage = () => {
+const {  categorias } = useCategorias()
+  const validarCategoria = (categoria)=>{
+    categorias.filter((c) => c.nombreCategoria = categoria) 
+    return      
+     Swal.fire({
+          title: 'Error!',
+          text: 'Categoria ya existe' ,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
+  }
   const formik = useFormik({
     initialValues: {
       nombreCategoria: '',
@@ -19,9 +32,20 @@ export const CategoriaPage = () => {
       console.log(values);
       try {
         const response = await createCategoriaRequest(values);
+        Swal.fire({
+          title: 'Success!',
+          text: 'Se ha registrado una categoria',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
         formik.resetForm();
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          title: 'Error!',
+          text: {error},
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
       }
     },
   });

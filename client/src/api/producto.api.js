@@ -6,4 +6,6 @@ export const createProductoRequest = async (producto) =>
 export const deleteProductoRequest = async (id) =>
   await axios.delete(`http://localhost:5000/producto/${id}`);
   export const updateProductoRequest = async (id, newFields) =>
-  await axios.put(`http://localhost:4000/tasks/${id}`, newFields);
+  await axios.put(`http://localhost:5000/producto/${id}`, newFields);
+export const getProductoRequest = async (id) =>
+  await axios.get(`http://localhost:5000/producto/${id}`);

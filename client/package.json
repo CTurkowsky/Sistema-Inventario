@@ -14,12 +14,15 @@
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.7",
     "@popperjs/core": "^2.11.6",
+    "@react-pdf/renderer": "^3.0.0",
     "axios": "^1.0.0",
     "bootstrap": "5.2.2",
     "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "6",
+    "react-to-print": "^2.14.7",
+    "sweetalert2": "^11.5.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {

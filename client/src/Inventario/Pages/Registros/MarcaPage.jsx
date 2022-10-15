@@ -3,6 +3,7 @@ import { FormLayout } from '../../Layout/FormLayout';
 import { createMarcaRequest } from '../../../api/marca.api';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
+import Swal from 'sweetalert2';
 export const MarcaPage = () => {
   const formik = useFormik({
     initialValues: {
@@ -19,9 +20,20 @@ export const MarcaPage = () => {
       console.log(values);
       try {
         const response = await createMarcaRequest(values);
+          Swal.fire({
+          title: 'Success!',
+          text: 'Se ha registrado una marca',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
         formik.resetForm();
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          title: 'Error!',
+          text: { error },
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
       }
     },
   });

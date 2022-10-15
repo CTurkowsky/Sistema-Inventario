@@ -16,7 +16,7 @@ export const getProductos = async (req, res) => {
 export const getProductos = async (req, res) => {
   try {
     const [result] = await pool.query(
-      'SELECT p.idProducto, p.nombreProducto, p.stock, date_format(p.fecha, "%d-%m-%Y") as fecha , m.nombreMarca, c.nombreCategoria FROM producto p LEFT JOIN marca m ON p.marca = m.idMarca LEFT JOIN categoria c ON p.categoria = c.idCategoria'
+      'SELECT p.idProducto, p.nombreProducto, p.stock, date_format(p.fecha, "%d-%m-%Y") as fecha , m.nombreMarca, c.nombreCategoria FROM producto p INNER JOIN marca m ON p.marca = m.idMarca INNER JOIN categoria c ON p.categoria = c.idCategoria'
     );
     res.json(result);
   } catch (error) {
@@ -29,7 +29,7 @@ export const getProductos = async (req, res) => {
 export const getProducto = async (req, res) => {
   try {
     const [result] = await pool.query(
-      'SELECT * FROM PRODUCTO WHERE idProducto = ?',
+      'SELECT p.idProducto, p.nombreProducto, p.stock, date_format(p.fecha, "%d-%m-%Y") as fecha , m.nombreMarca, c.nombreCategoria FROM producto p INNER JOIN marca m ON p.marca = m.idMarca INNER JOIN categoria c ON p.categoria = c.idCategoria WHERE p.idProducto = ?',
       [req.params.id]
     );
     if (result.length == 0)

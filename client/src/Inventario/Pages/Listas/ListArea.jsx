@@ -40,7 +40,7 @@ export const ListArea = () => {
               value={search}
               onChange={onSearchChange}
             />
-            <table className='table table-striped  table-bordered table-hover border-0 '>
+            <table className='table table-striped table-hover'>
               <thead>
                 <tr>
                   <th scope='col'>ID</th>

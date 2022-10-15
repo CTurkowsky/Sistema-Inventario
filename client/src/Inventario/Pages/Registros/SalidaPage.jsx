@@ -3,6 +3,7 @@ import { createSalidaRequest } from '../../../api/salida.api';
 import { useProductos, useUsuarios, useAreas } from '../../../hooks';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
+import Swal from 'sweetalert2';
 export const SalidaPage = () => {
   const { areas } = useAreas();
   const { productos } = useProductos();
@@ -29,10 +30,21 @@ export const SalidaPage = () => {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await createSalidaRequest(values);
+        const response = await createSalidaRequest(values); 
+          Swal.fire({
+          title: 'Success!',
+          text: 'Se ha registrado una salida',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
         formik.resetForm();
       } catch (error) {
-        console.log(error);
+           Swal.fire({
+          title: 'Error!',
+          text: { error },
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
       }
     },
   });

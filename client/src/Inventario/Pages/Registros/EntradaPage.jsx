@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as YUP from 'yup';
 import { createEntradaRequest } from '../../../api/entrada.api';
 import { useProductos, useUsuarios } from '../../../hooks';
+import Swal from 'sweetalert2';
 export const EntradaPage = () => {
   const { productos } = useProductos();
   const { usuarios } = useUsuarios();
@@ -26,9 +27,20 @@ export const EntradaPage = () => {
       console.log(values);
       try {
         const response = await createEntradaRequest(values);
+        Swal.fire({
+          title: 'Success!',
+          text: 'Se ha registrado una categoria',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
         formik.resetForm();
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          title: 'Error!',
+          text: { error },
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
       }
     },
   });
@@ -82,16 +94,15 @@ export const EntradaPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   >
-                    {productos.map((producto) => 
+                    {productos.map((producto) => (
                       <option
                         key={producto.idProducto}
                         value={producto.idProducto}
                       >
                         {producto.nombreProducto}
                       </option>
-                    )}
+                    ))}
                   </select>
-           
 
                   <label>Usuario</label>
                   <select
@@ -102,15 +113,21 @@ export const EntradaPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   >
-                    {usuarios.map((usuario) => 
+                    {usuarios.map((usuario) => (
                       <option key={usuario.idUsuario} value={usuario.idUsuario}>
-                        {usuario.nombre + ' ' + usuario.apellidoPaterno + ' ' + usuario.apellidoMaterno}
+                        {usuario.nombre +
+                          ' ' +
+                          usuario.apellidoPaterno +
+                          ' ' +
+                          usuario.apellidoMaterno}
                       </option>
-                    )}
+                    ))}
                   </select>
-        
+
                   <div className='text-center my-5'>
-                  <button  className='btn btn-primary btn-lg' type='submit'>Registrar</button>
+                    <button className='btn btn-primary btn-lg' type='submit'>
+                      Registrar
+                    </button>
                   </div>
                 </div>
               </div>

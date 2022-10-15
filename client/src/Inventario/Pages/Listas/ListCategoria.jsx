@@ -35,7 +35,7 @@ export const ListCategoria = () => {
   };
   return (
     <>
-      <div className='container'>
+      <div className='container text-center'>
         <div className='row'>
           <div className=' col-lg-12 mt-5'>
             <input
@@ -45,8 +45,8 @@ export const ListCategoria = () => {
               value={search}
               onChange={onSearchChange}
             />
-            <table className='table table-striped'>
-              <thead>
+            <table className='table table-striped table-hover'>
+              <thead className='text-center'>
                 <tr>
                   <th scope='col'>ID</th>
                   <th scope='col'>Nombre Categoria</th>

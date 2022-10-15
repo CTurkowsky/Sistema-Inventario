@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getProductosRequest, deleteProductoRequest } from '../api/producto.api';
+import { getProductosRequest, deleteProductoRequest, updateProductoRequest, getProductoRequest} from '../api/producto.api';
 
 export const useProductos = () => {
   const [productos , setProductos] = useState([]);
@@ -19,8 +19,26 @@ export const useProductos = () => {
       console.error(error);
     }
   };
+
+  const getProducto = async (id) => {
+    try {
+      const response = await getProductoRequest(id);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+ const updateProducto = async (id, newFields) => {
+    try {
+      const response = await updateProductoRequest(id, newFields);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return {
-    productos, deleteProducto
+    productos, deleteProducto, getProducto, updateProducto
   };
 };
 

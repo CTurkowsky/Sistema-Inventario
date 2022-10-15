@@ -1,23 +1,21 @@
-import {
-  Button,
-  Grid,
-  TextField,
-  Alert,
-  Select,
-  MenuItem,
-  InputLabel,
-} from '@mui/material';
 import { FormLayout } from '../../Layout/FormLayout';
 import { createProductoRequest } from '../../../api/producto.api';
-import { useMarcas, useCategorias } from '../../../hooks';
+import { useMarcas, useCategorias, useProductos } from '../../../hooks';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useState, useEffect } from 'react';
 export const ProductoPage = () => {
   const { marcas } = useMarcas();
+  const { productos, getProducto } = useProductos();
   const { categorias } = useCategorias();
-
   const params = useParams();
+  useEffect(() => {
+    if (params.id) {
+      console.log('Cargando datos');
+    }
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -46,9 +44,20 @@ export const ProductoPage = () => {
       console.log(values);
       try {
         const response = await createProductoRequest(values);
+        Swal.fire({
+          title: 'Success!',
+          text: 'Se ha registrado un producto',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
         formik.resetForm();
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          title: 'Error!',
+          text: { error },
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
       }
     },
   });
@@ -113,6 +122,7 @@ export const ProductoPage = () => {
                     label='Categoria'
                     name='categoria'
                     className='form-control my-4 py-2'
+                    placeholder='Selecione Categoria'
                     value={formik.values.categoria}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}

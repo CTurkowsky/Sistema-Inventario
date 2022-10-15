@@ -44,7 +44,7 @@ export const ListEntrada = () => {
               value={search}
               onChange={onSearchChange}
             />
-            <table className='table table-striped'>
+            <table className='table table-striped table-hover'>
               <thead>
                 <tr>
                   <th scope='col'>ID</th>
