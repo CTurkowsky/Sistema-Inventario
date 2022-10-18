@@ -2,7 +2,7 @@ import { useEntrada } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 export const ListEntrada = () => {
-  const { entradas, deleteEntrada } = useEntrada();
+  const { entradas} = useEntrada();
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
@@ -11,14 +11,14 @@ export const ListEntrada = () => {
       return entradas.slice(currentPage, currentPage + 10);
 
     const filtered = entradas.filter((entrada) =>
-      entrada.nombreProducto.includes(search)
+      entrada.fecha.includes(search)
     );
     return filtered.slice(currentPage, currentPage + 10);
   };
 
   const nextPage = () => {
     if (
-      entradas.filter((entrada) => entrada.nombreProducto.includes(search)).length >
+      entradas.filter((entrada) => entrada.nombre.includes(search)).length >
       
       currentPage + 10
     )
@@ -40,16 +40,14 @@ export const ListEntrada = () => {
             <input
               type='text'
               className='mb-2 form-control'
-              placeholder='Burcar Producto'
+              placeholder='Burcar una entrada por fecha'
               value={search}
               onChange={onSearchChange}
             />
             <table className='table table-striped table-hover'>
               <thead>
                 <tr>
-                  <th scope='col'>ID</th>
-                  <th scope='col'>Nombre Prodcuto</th>
-                  <th scope='col'>Cantidad</th>
+                  <th scope='col'>ID Entrada</th>
                   <th scope='col'>Fecha</th>
                   <th scope='col'>Usuario</th>
                   <th scope='col'>Acciones</th>
@@ -59,9 +57,7 @@ export const ListEntrada = () => {
               <tbody>
                 {filteredEntrada().map((entrada) => (
                   <tr key={entrada.idEntrada}>
-                    <th scope='row'>{entrada.idEntrada}</th>
-                    <td>{entrada.nombreProducto}</td>
-                    <td>{entrada.cantidad}</td>
+                    <td>{entrada.idEntrada}</td>
                     <td>{entrada.fecha}</td>
                     <td>{entrada.nombre}</td>
 

@@ -9,7 +9,7 @@ export const useEntrada= () => {
       setEntradas(response.data);
     };
     getEntradas();
-  }, [entradas]);
+  }, []);
 
  const deleteEntrada= async (id) => {
     try {

@@ -17,8 +17,7 @@ export const SalidaPage = () => {
       area: '',
     },
     validationSchema: YUP.object({
-      fecha: YUP.date()
-        .required('La fecha  es requerida'),
+      fecha: YUP.date().required('La fecha  es requerida'),
       cantidad: YUP.number()
         .required('La descripcion es requerido')
         .positive('El numero debe ser valido'),
@@ -30,8 +29,9 @@ export const SalidaPage = () => {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await createSalidaRequest(values); 
-          Swal.fire({
+         
+        const response = await createSalidaRequest(values);
+        Swal.fire({
           title: 'Success!',
           text: 'Se ha registrado una salida',
           icon: 'success',
@@ -39,7 +39,7 @@ export const SalidaPage = () => {
         });
         formik.resetForm();
       } catch (error) {
-           Swal.fire({
+        Swal.fire({
           title: 'Error!',
           text: { error },
           icon: 'error',
@@ -101,7 +101,11 @@ export const SalidaPage = () => {
                             key={producto.idProducto}
                             value={producto.idProducto}
                           >
-                            {producto.nombreProducto}
+                            {producto.nombreProducto +
+                              '-' +
+                              producto.nombreCategoria +
+                              '-' +
+                              producto.nombreMarca}
                           </option>
                         );
                     })}
@@ -153,7 +157,9 @@ export const SalidaPage = () => {
                     </div>
                   ) : null}
                   <div className='text-center my-5'>
-                    <button  className='btn btn-primary btn-lg' type='submit'>Registrar</button>
+                    <button className='btn btn-primary btn-lg' type='submit'>
+                      Registrar
+                    </button>
                   </div>
                 </div>
               </div>

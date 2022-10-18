@@ -21,9 +21,9 @@ export const createEntradaProducto = async (req, res) => {
 };
 
 
-export const getEntrdasProductos= async (req, res) => {
+export const getEntradasProductos= async (req, res) => {
   try {
-    const [result] = await pool.query('SELECT * FROM ENTRADA_PRODUCTO');
+    const [result] = await pool.query('select  ep.idEntradaProducto,ep.producto,  ep.entrada, p.nombreProducto, ep.cantidad,  date_format(e.fecha , "%d-%m-%Y") AS fecha, c.nombreCategoria, m.nombreMarca from entrada_producto ep INNER JOIN Producto p ON ep.producto = p.idProducto INNER JOIN Marca m ON p.marca = m.idMarca INNER JOIN Categoria c ON p.categoria = c.idCategoria INNER JOIN Entrada e ON ep.entrada = e.idEntrada order by idEntradaProducto;');
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -33,7 +33,7 @@ export const getEntrdasProductos= async (req, res) => {
 
 export const deleteEntradaProducto = async (req, res) => {
   try {
-    const [result] = await pool.query('DELETE FROM ENTRADA_PRODUCTO WHERE entrada = ?', [
+    const [result] = await pool.query('DELETE FROM ENTRADA_PRODUCTO WHERE idEntradaProducto = ?', [
       req.params.id,
     ]);
     if (result.affectedRows === 0)

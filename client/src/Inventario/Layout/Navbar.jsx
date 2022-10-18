@@ -37,7 +37,7 @@ export const Navbar = () => {
                 </li>
                 <li>
                   <RouterLink to='/categorialist' className='dropdown-item'>
-                    List
+                    Lista
                   </RouterLink>
                 </li>
               </ul>
@@ -61,7 +61,7 @@ export const Navbar = () => {
                 </li>
                 <li>
                   <RouterLink to='/list' className='dropdown-item'>
-                    List
+                    Lista
                   </RouterLink>
                 </li>
               </ul>
@@ -85,7 +85,7 @@ export const Navbar = () => {
                 </li>
                 <li>
                   <RouterLink to='/marcalist' className='dropdown-item'>
-                    List
+                    Lista
                   </RouterLink>
                 </li>
               </ul>
@@ -109,7 +109,7 @@ export const Navbar = () => {
                 </li>
                 <li>
                   <RouterLink to='/arealist' className='dropdown-item'>
-                    List
+                    Lista
                   </RouterLink>
                 </li>
               </ul>
@@ -133,7 +133,12 @@ export const Navbar = () => {
                 </li>
                 <li>
                   <RouterLink to='/entradalist' className='dropdown-item'>
-                    List
+                    Lista Entrada
+                  </RouterLink>
+                </li>
+                <li>
+                  <RouterLink to='/entradaproductolist' className='dropdown-item'>
+                    Lista Entrada Producto
                   </RouterLink>
                 </li>
               </ul>
@@ -157,10 +162,39 @@ export const Navbar = () => {
                 </li>
                 <li>
                   <RouterLink to='/salidalist' className='dropdown-item'>
-                    List
+                    Lista
                   </RouterLink>
                 </li>
               </ul>
+ 
+            </li>
+
+
+
+            <li className='nav-item dropdown'>
+              <a
+                className='nav-link dropdown-toggle'
+                href='#'
+                id='navbarDropdown'
+                role='button'
+                data-bs-toggle='dropdown'
+                aria-expanded='false'
+              >
+                Usuario
+              </a>
+              <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
+                <li>
+                  <RouterLink to='/auth/login' className='dropdown-item'>
+                    Iniciar Sesion
+                  </RouterLink>
+                </li>
+                <li>
+                  <RouterLink to='/auth/register' className='dropdown-item'>
+                    Registro
+                  </RouterLink>
+                </li>
+              </ul>
+ 
             </li>
           </ul>
         </div>

@@ -1,10 +1,12 @@
-import { Button, Grid, TextField, Alert } from '@mui/material';
 import { FormLayout } from '../../Layout/FormLayout';
 import { createMarcaRequest } from '../../../api/marca.api';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
 import Swal from 'sweetalert2';
+import { useMarcas } from '../../../hooks';
 export const MarcaPage = () => {
+  const { marcas } = useMarcas();
+  const validMarca = () => {};
   const formik = useFormik({
     initialValues: {
       nombreMarca: '',
@@ -17,15 +19,22 @@ export const MarcaPage = () => {
     }),
 
     onSubmit: async (values) => {
-      console.log(values);
       try {
+        if (marcas.find((marca) => marca.nombreMarca === values.nombreMarca))
+          return Swal.fire({
+            title: 'Error!',
+            text: 'Marca ya existe',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
         const response = await createMarcaRequest(values);
-          Swal.fire({
+        Swal.fire({
           title: 'Success!',
           text: 'Se ha registrado una marca',
           icon: 'success',
           confirmButtonText: 'Aceptar',
         });
+        console.log(values);
         formik.resetForm();
       } catch (error) {
         Swal.fire({

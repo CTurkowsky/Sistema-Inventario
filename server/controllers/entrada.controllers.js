@@ -5,7 +5,7 @@ import { pool } from '../db.js';
 
 export const getEntradas = async (req, res) => {
   try {
-    const [result] = await pool.query('SELECT e.idEntrada, e.cantidad,  date_format(e.fecha , "%d-%m-%Y") AS fecha ,  p.nombreProducto, u.nombre FROM entrada e INNER JOIN producto p ON  e.producto = p.idProducto INNER JOIN usuario u ON e.usuario = u.idUsuario;');
+    const [result] = await pool.query('SELECT e.idEntrada, date_format(e.fecha , "%d-%m-%Y") AS fecha ,   u.nombre FROM entrada e  INNER JOIN usuario u ON e.usuarioEntrada = u.idUsuario;');
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -33,18 +33,16 @@ export const getEntrada = async (req, res) => {
 
 export const createEntrada = async (req, res) => {
   try {
-    const { fecha, cantidad, usuario, producto } = req.body;
+    const { fecha,  usuarioEntrada } = req.body;
     const [result] = await pool.query(
-      'INSERT INTO ENTRADA (fecha, cantidad, usuario, producto  ) VALUES (?,?,?,?)',
-      [fecha, cantidad, usuario, producto]
+      'INSERT INTO ENTRADA (fecha , usuarioEntrada ) VALUES (?,?)',
+      [fecha,  usuarioEntrada ]
     );
 
     res.json({
       idEntrada: result.insertId,
       fecha,
-      cantidad,
-      usuario,
-      producto,
+      usuarioEntrada,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });

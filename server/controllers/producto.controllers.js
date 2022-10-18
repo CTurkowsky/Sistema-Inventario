@@ -77,7 +77,22 @@ export const updateProducto = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+export const updateStock = async (req, res) => {
+  try {
+    const { idProducto , cantidad} = req.body;
+    const [result] = await pool.query(
+      'UPDATE PRODUCTO SET STOCK = STOCK + CANTIDAD  WHERE idProducto = ?;',
+      [idProducto, cantidad]
+    );
 
+    res.json({
+      idProducto,
+      stock,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 //Elimina un equipo informatico por id
 export const deleteProducto = async (req, res) => {
   try {

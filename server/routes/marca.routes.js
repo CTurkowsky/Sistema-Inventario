@@ -3,5 +3,5 @@ import { createMarca, deleteMarca, getMarcas } from '../controllers/marca.contro
 const router = Router();
 router.post('/marca', createMarca);
 router.get('/marca', getMarcas);
-router.delete('/marca', deleteMarca);
+router.delete('/marca/:id', deleteMarca);
 export default router;

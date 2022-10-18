@@ -1,4 +1,3 @@
-import { Button, Grid, TextField, Alert } from '@mui/material';
 import { FormLayout } from '../../Layout/FormLayout';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
@@ -6,17 +5,8 @@ import { useCategorias } from '../../../hooks';
 import { createCategoriaRequest } from '../../../api/categoria.api';
 import Swal from 'sweetalert2';
 export const CategoriaPage = () => {
-const {  categorias } = useCategorias()
-  const validarCategoria = (categoria)=>{
-    categorias.filter((c) => c.nombreCategoria = categoria) 
-    return      
-     Swal.fire({
-          title: 'Error!',
-          text: 'Categoria ya existe' ,
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-        });
-  }
+  const { categorias } = useCategorias();
+
   const formik = useFormik({
     initialValues: {
       nombreCategoria: '',
@@ -29,9 +19,18 @@ const {  categorias } = useCategorias()
     }),
 
     onSubmit: async (values) => {
-      console.log(values);
       try {
+        if (
+          categorias.find((categoria) => categoria.nombreCategoria === values.nombreCategoria)
+        )
+          return Swal.fire({
+            title: 'Error!',
+            text: 'Categoria ya existe',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
         const response = await createCategoriaRequest(values);
+        console.log(values);
         Swal.fire({
           title: 'Success!',
           text: 'Se ha registrado una categoria',
@@ -42,7 +41,7 @@ const {  categorias } = useCategorias()
       } catch (error) {
         Swal.fire({
           title: 'Error!',
-          text: {error},
+          text: { error },
           icon: 'error',
           confirmButtonText: 'Aceptar',
         });

@@ -1,23 +1,25 @@
-import { useMarcas } from '../../../hooks';
+import { useEntrada, useEntradaProducto } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-export const ListMarca = () => {
-  const { marcas, deleteMarca } = useMarcas();
-  const navigate = useNavigate();
+export const ListEntradaProducto = () => {
+  const { entradasproductos, deleteEntradaProducto} = useEntradaProducto();
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState('');
-  const filteredMarca = () => {
-    if (search.length === 0) return marcas.slice(currentPage, currentPage + 10);
+  const navigate = useNavigate();
+  const filteredEntrada = () => {
+    if (search.length === 0)
+      return entradasproductos.slice(currentPage, currentPage + 10);
 
-    const filtered = marcas.filter((marca) =>
-      marca.nombreMarca.includes(search)
+    const filtered = entradasproductos.filter((entrada) =>
+      entrada.nombreProducto.includes(search)
     );
     return filtered.slice(currentPage, currentPage + 10);
   };
 
   const nextPage = () => {
     if (
-      marcas.filter((marca) => marca.nombreMarca.includes(search)).length >
+      entradasproductos.filter((entrada) => entrada.nombreProducto.includes(search)).length >
+      
       currentPage + 10
     )
       setCurrentPage(currentPage + 10);
@@ -38,36 +40,44 @@ export const ListMarca = () => {
             <input
               type='text'
               className='mb-2 form-control'
-              placeholder='Burcar Marca'
+              placeholder='Burcar Producto'
               value={search}
               onChange={onSearchChange}
             />
-
             <table className='table table-striped table-hover'>
               <thead>
                 <tr>
-                  <th scope='col'>ID</th>
-                  <th scope='col'>Nombre Marca</th>
+                  <th scope='col'>ID Detalle</th>
+                  <th scope='col'>ID Producto</th>
+                  <th scope='col'>ID Entrada</th>
+                  <th scope='col'>Nombre Producto</th>
+                  <th scope='col'>Cantidad</th>
+                  <th scope='col'>Fecha</th>
                   <th scope='col'>Acciones</th>
                 </tr>
               </thead>
 
               <tbody>
-                {marcas.map((marca) => (
-                  <tr key={marca.idMarca}>
-                    <th scope='row'>{marca.idMarca}</th>
-                    <td>{marca.nombreMarca}</td>
+                {filteredEntrada().map((entrada) => (
+                  <tr key={entrada.idEntradaProducto}>
+                    <td>{entrada.idEntradaProducto}</td>
+                    <td>{entrada.producto}</td>
+                    <td>{entrada.entrada}</td>
+                    <td>{entrada.nombreProducto}</td>
+                    <td>{entrada.cantidad}</td>
+                    <td>{entrada.fecha}</td>
+
                     <td>
                       <button
                         className='btn btn-warning m-2'
-                        onClick={() => navigate(`/edit/${marca.idMarca}`)}
+                        onClick={() => navigate(`/edit/${entrada.idEntrada}`)}
                       >
                         Editar
                       </button>
 
                       <button
                         className='btn btn-danger'
-                        onClick={() => deleteMarca(marca.idMarca)}
+                        onClick={() => deleteEntradaProducto(entrada.idEntradaProducto)}
                       >
                         Eliminar
                       </button>
@@ -101,3 +111,4 @@ export const ListMarca = () => {
     </>
   );
 };
+

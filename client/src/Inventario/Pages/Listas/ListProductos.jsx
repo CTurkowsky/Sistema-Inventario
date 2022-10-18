@@ -70,6 +70,8 @@ export const ListProductos = () => {
                 <tr>
                   <th scope='col'>ID</th>
                   <th scope='col'>Nombre Prodcuto</th>
+                  <th scope='col'>Categoria</th>
+                  <th scope='col'>Marca</th>
                   <th scope='col'>Stock</th>
                   <th scope='col'>Fecha</th>
                   <th scope='col'>Acciones</th>
@@ -78,10 +80,12 @@ export const ListProductos = () => {
 
               <tbody className='text-center'>
                 {filteredProductos().map(
-                  ({ idProducto, nombreProducto, stock, fecha }) => (
+                  ({ idProducto, nombreProducto, nombreCategoria, nombreMarca, stock, fecha }) => (
                     <tr key={idProducto}>
                       <th scope='row'>{idProducto}</th>
                       <td>{nombreProducto}</td>
+                      <td>{nombreCategoria}</td>
+                      <td>{nombreMarca}</td>
                       <td
                         className={`table-${
                           stock === 0 ? 'danger' : ''

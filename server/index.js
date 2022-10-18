@@ -9,6 +9,8 @@ import areaRoutes from './routes/area.routes.js'
 import entradaRoutes from './routes/entrada.routes.js'
 import salidaRoutes from './routes/salida.routes.js'
 import productoRoutes from './routes/producto.routes.js'
+import productosalidaRoutes from './routes/producto_salida.routes.js'
+import entradaproductoRoutes from './routes/entrada_producto.routes.js'
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -20,5 +22,7 @@ app.use(salidaRoutes);
 app.use(areaRoutes);
 app.use(productoRoutes);
 app.use(usuarioRoutes);
+app.use(productosalidaRoutes);
+app.use(entradaproductoRoutes);
 app.listen(PORT);
 console.log(`Server is running on port ${PORT}`);

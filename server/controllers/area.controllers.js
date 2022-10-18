@@ -32,4 +32,17 @@ export const getAreas = async (req, res) => {
 };
 
 
+export const deleteArea = async (req, res) => {
+  try {
+    const [result] = await pool.query('DELETE FROM AREA WHERE idArea = ?', [
+      req.params.id,
+    ]);
+    if (result.affectedRows === 0)
+      return res.status(404).json({ message: 'Area no encontrado' });
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 

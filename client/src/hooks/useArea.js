@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAreasRequest } from '../api/area.api';
+import { getAreasRequest, deleteAreaRequest } from '../api/area.api';
 
 export const useAreas = () => {
   const [areas , setAreas] = useState([]);
@@ -10,8 +10,17 @@ export const useAreas = () => {
     };
     getAreas();
   }, [areas]);
+
+ const deleteArea = async (id) => {
+    try {
+      const response = await deleteAreaRequest (id);
+      setAreas(areas.filter((area) => area.idArea !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return {
-    areas,
+    areas,deleteArea
   };
 };
 

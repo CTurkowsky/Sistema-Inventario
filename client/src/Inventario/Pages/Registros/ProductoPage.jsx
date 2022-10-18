@@ -20,7 +20,7 @@ export const ProductoPage = () => {
   const formik = useFormik({
     initialValues: {
       nombreProducto: '',
-      stock: '',
+      stock: 0,
       fecha: '',
       categoria: '',
       marca: '',
@@ -30,9 +30,6 @@ export const ProductoPage = () => {
         .min(3, 'El nombre tener mas de 3 caracteres')
         .max(20, 'El nombre debe tener maximo  20 caracteres')
         .required('El nombre es requerido'),
-      stock: YUP.number()
-        .required('El stock es requerido')
-        .positive('El stock debe ser positivo'),
 
       fecha: YUP.date().required('La fecha  es requerida'),
 
@@ -41,9 +38,9 @@ export const ProductoPage = () => {
     }),
 
     onSubmit: async (values) => {
-      console.log(values);
       try {
         const response = await createProductoRequest(values);
+      console.log(values);
         Swal.fire({
           title: 'Success!',
           text: 'Se ha registrado un producto',
@@ -85,22 +82,6 @@ export const ProductoPage = () => {
                   formik.errors.nombreProducto ? (
                     <div className='alert alert-danger' role='alert'>
                       {formik.errors.nombreProducto}
-                    </div>
-                  ) : null}
-                  <label>Stock</label>
-                  <input
-                    label='Stock'
-                    type='number'
-                    className='form-control my-4 py-2'
-                    placeholder='Stock'
-                    name='stock'
-                    value={formik.values.stock}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.stock && formik.errors.stock ? (
-                    <div className='alert alert-danger' role='alert'>
-                      {formik.errors.stock}
                     </div>
                   ) : null}
                   <label>Fecha</label>

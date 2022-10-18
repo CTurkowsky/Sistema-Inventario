@@ -64,7 +64,7 @@ export const ListArea = () => {
 
                       <button
                         className='btn btn-danger'
-                        onClick={() => deleteCategoria(area.idArea)}
+                        onClick={() => deleteArea(area.idArea)}
                       >
                         Eliminar
                       </button>

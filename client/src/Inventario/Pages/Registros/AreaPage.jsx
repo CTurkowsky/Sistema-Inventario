@@ -3,7 +3,9 @@ import { createAreaRequest } from '../../../api/area.api';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
 import Swal from 'sweetalert2';
+import { useAreas } from '../../../hooks';
 export const AreaPage = () => {
+  const { areas } = useAreas();
   const formik = useFormik({
     initialValues: {
       nombreArea: '',
@@ -16,9 +18,17 @@ export const AreaPage = () => {
     }),
 
     onSubmit: async (values) => {
-      console.log(values);
       try {
+        if (areas.find((area) => area.nombreArea === values.nombreArea))
+          return Swal.fire({
+            title: 'Error!',
+            text: 'Area ya existe',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
         const response = await createAreaRequest(values);
+
+        console.log(values);
         Swal.fire({
           title: 'Success!',
           text: 'Se ha registrado una area',

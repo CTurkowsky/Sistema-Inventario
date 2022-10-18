@@ -5,7 +5,8 @@ import {
         getProducto,
         createProducto,
         updateProducto,
-        deleteProducto
+        deleteProducto,
+        updateStock
 } from '../controllers/producto.controllers.js'
 
 const router = Router();
@@ -14,10 +15,9 @@ const router = Router();
 
 router.get('/producto', getProductos);
 router.get('/producto/:id', getProducto);
-
 router.post('/producto', createProducto);
-
 router.put('/producto/:id', updateProducto);
+router.put('/productostock', updateStock);
 
 router.delete('/producto/:id', deleteProducto);
 
