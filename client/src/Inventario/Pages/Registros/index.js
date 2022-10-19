@@ -5,3 +5,5 @@ export * from './SalidaPage';
 export * from './EntradaPage';
 export * from './AreaPage';
 export * from './EntradaProducto';
+export * from './InicioSesionPage';
+export * from './RegistroPage';

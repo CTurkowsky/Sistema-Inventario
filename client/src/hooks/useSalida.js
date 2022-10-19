@@ -10,7 +10,7 @@ export const useSalida= () => {
       setSalidas(response.data);
     };
     getSalidas();
-  }, [salidas]);
+  }, []);
  const deleteSalida = async (id) => {
     try {
       const response = await deleteSalidaRequest(id);

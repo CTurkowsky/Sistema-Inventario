@@ -9,7 +9,7 @@ export const useEntradaProducto= () => {
       setEntradasProductos(response.data);
     };
     getEntradasProductos();
-  }, [entradasproductos]);
+  }, []);
  const deleteEntradaProducto= async (id) => {
     try {
       const response = await deleteEntradaProductoRequest(id);

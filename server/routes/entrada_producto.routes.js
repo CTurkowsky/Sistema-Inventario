@@ -3,5 +3,5 @@ import { createEntradaProducto, getEntradasProductos, deleteEntradaProducto} fro
 const router = Router();
 router.post('/entradaproducto', createEntradaProducto);
 router.get('/entradaproducto', getEntradasProductos);
-router.delete('/entradaproducto', deleteEntradaProducto);
+router.delete('/entradaproducto/:id', deleteEntradaProducto);
 export default router;

@@ -9,7 +9,7 @@ export const useCategorias = () => {
       setCategorias(response.data);
     };
     getCategorias();
-  }, [categorias]);
+  }, []);
  const deleteCategoria= async (id) => {
     try {
       const response = await deleteCategoriaRequest(id);

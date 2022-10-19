@@ -2,10 +2,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
 import Swal from 'sweetalert2';
-import { createUsuarioRequest } from '../../api/usuario.api';
-import { FormLayout } from '../../Inventario/Layout/FormLayout';
-import { useUsuarios } from '../../hooks';
-export const RegisterPage = () => {
+import { createUsuarioRequest } from '../../../api/usuario.api';
+import { FormLayout } from '../../Layout/FormLayout';
+import { useUsuarios } from '../../../hooks';
+export const RegistroPage = () => {
   const { usuarios } = useUsuarios()
   const formik = useFormik({
     initialValues: {

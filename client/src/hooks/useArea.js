@@ -9,7 +9,7 @@ export const useAreas = () => {
       setAreas(response.data);
     };
     getAreas();
-  }, [areas]);
+  }, []);
 
  const deleteArea = async (id) => {
     try {

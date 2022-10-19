@@ -184,12 +184,12 @@ export const Navbar = () => {
               </a>
               <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
                 <li>
-                  <RouterLink to='/auth/login' className='dropdown-item'>
+                  <RouterLink to='/login' className='dropdown-item'>
                     Iniciar Sesion
                   </RouterLink>
                 </li>
                 <li>
-                  <RouterLink to='/auth/register' className='dropdown-item'>
+                  <RouterLink to='/registro' className='dropdown-item'>
                     Registro
                   </RouterLink>
                 </li>

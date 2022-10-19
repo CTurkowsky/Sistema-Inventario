@@ -2,7 +2,7 @@ import { useEntrada } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 export const ListEntrada = () => {
-  const { entradas} = useEntrada();
+  const { entradas, deleteEntrada} = useEntrada();
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState('');
   const navigate = useNavigate();

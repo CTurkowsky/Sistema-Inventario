@@ -25,7 +25,7 @@ export const EntradaRegistro = () => {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await createEntradaRequest(values.fecha, values.usuarioEntrada);
+        const response = await createEntradaRequest(values);
         Swal.fire({
           title: 'Success!',
           text: 'Se ha registrado una categoria',

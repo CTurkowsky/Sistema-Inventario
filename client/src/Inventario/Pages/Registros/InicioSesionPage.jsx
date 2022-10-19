@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { FormLayout } from '../../Inventario/Layout/FormLayout';
+import { FormLayout } from '../../Layout/FormLayout';
 
-export const LoginPage = () => {
+export const InicioSesionPage = () => {
   return (
     <FormLayout>
       <form>
