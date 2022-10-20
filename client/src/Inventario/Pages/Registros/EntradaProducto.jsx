@@ -4,13 +4,21 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as YUP from 'yup';
 import Swal from 'sweetalert2';
-export const EntradaProducto = () => {
+import { FormLayout } from '../../Layout/FormLayout';
+export const EntradaProducto = ({ setExistProducto }) => {
   const { productos } = useProductos();
   const { entradas } = useEntrada();
   const [productoFiltered, setProductoFiltered] = useState([]);
-  const lastEntrada = entradas.findLast((entrada) => entrada.idEntrada);
+  const lastEntrada = [entradas.findLast((entrada) => entrada.idEntrada)]
   const [product, setProduct] = useState([]);
 
+  const map = ()=>{
+    const id = lastEntrada.map(item => {return item.idEntrada})
+    console.log(id)
+  }
+  if (product.length > 0) {
+    setExistProducto(true);
+  }
   const filtrarProducto = (idProducto) => {
     const filtered = productos.find(
       (producto) => producto.idProducto == idProducto
@@ -28,6 +36,11 @@ export const EntradaProducto = () => {
     if (product.find((producto) => producto.producto === newProducto.producto))
       return;
     setProduct([newProducto, ...product]);
+  };
+
+  const resetProducto = () => {
+    setProduct([]);
+    setProductoFiltered([]);
   };
 
   const registerProducto = async () => {
@@ -67,7 +80,7 @@ export const EntradaProducto = () => {
     initialValues: {
       cantidad: '',
       producto: '',
-      entrada: 3,
+      entrada: 19,
     },
     validationSchema: YUP.object({
       cantidad: YUP.number()
@@ -95,9 +108,8 @@ export const EntradaProducto = () => {
     },
   });
   return (
-    <>
+    <FormLayout title='Agregar Productos'>
       <form onSubmit={formik.handleSubmit}>
-        <h2>Producto</h2>
         <label>Cantidad</label>
         <input
           type='number'
@@ -134,8 +146,11 @@ export const EntradaProducto = () => {
           <div className='alert alert-danger'>{formik.errors.producto}</div>
         ) : null}
         <div>
-          <button type='submit' className='btn btn-primary' >
+          <button type='submit' className='btn btn-primary m-4'>
             Agregar
+          </button>
+          <button type='submit' className='btn btn-primary m-4' onClick={resetProducto}>
+            Limpiar
           </button>
         </div>
         <table className='table'>
@@ -171,10 +186,9 @@ export const EntradaProducto = () => {
       </form>
       {product.length > 0 ? (
         <button className='btn btn-primary' onClick={registerProducto}>
-          {' '}
-          Registrar Productos{' '}
+          Registrar Productos
         </button>
       ) : null}
-    </>
+    </FormLayout>
   );
 };

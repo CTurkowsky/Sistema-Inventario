@@ -1,16 +1,14 @@
-import { FormLayout } from '../../Layout/FormLayout';
-import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import * as YUP from 'yup';
 import { createEntradaRequest } from '../../../api/entrada.api';
-import { useUsuarios } from '../../../hooks';
-import Swal from 'sweetalert2';
 import { EntradaProducto } from './EntradaProducto';
-
+import { FormLayout } from '../../Layout/FormLayout';
+import Swal from 'sweetalert2';
+import { useFormik } from 'formik';
+import { useUsuarios } from '../../../hooks';
+import { useState } from 'react';
+import * as YUP from 'yup';
 export const EntradaRegistro = () => {
   const { usuarios } = useUsuarios();
-  const navigate = useNavigate()
-
+  const [existProducto, setExistProducto] = useState(false);
   const formik = useFormik({
     initialValues: {
       fecha: '',
@@ -18,17 +16,24 @@ export const EntradaRegistro = () => {
     },
     validationSchema: YUP.object({
       fecha: YUP.date().required('La fecha  es requerida'),
-      usuarioEntrada: YUP.string()
-        .required('El usuario es requerido')
+      usuarioEntrada: YUP.string().required('El usuario es requerido'),
     }),
 
     onSubmit: async (values) => {
       console.log(values);
       try {
+        if (existProducto === false) {
+          return Swal.fire({
+            title: 'Error!',
+            text: 'La entrada necesita productos',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+        }
         const response = await createEntradaRequest(values);
         Swal.fire({
           title: 'Success!',
-          text: 'Se ha registrado una categoria',
+          text: 'Se ha registrado una entrada',
           icon: 'success',
           confirmButtonText: 'Aceptar',
         });
@@ -71,7 +76,7 @@ export const EntradaRegistro = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           >
-            {usuarios.map((usuario) => 
+            {usuarios.map((usuario) => (
               <option key={usuario.idUsuario} value={usuario.idUsuario}>
                 {usuario.nombre +
                   ' ' +
@@ -79,7 +84,7 @@ export const EntradaRegistro = () => {
                   ' ' +
                   usuario.apellidoMaterno}
               </option>
-            )}
+            ))}
           </select>
           {formik.touched.usuarioEntrada && formik.errors.usuarioEntrada ? (
             <div className='alert alert-danger'>
@@ -87,15 +92,15 @@ export const EntradaRegistro = () => {
             </div>
           ) : null}
 
-
           <div className='text-center my-5'>
-            <button className='btn btn-primary btn-lg' type='submit' >
+            <button className='btn btn-primary btn-lg' type='submit'>
               Registrar
             </button>
           </div>
         </form>
-      <EntradaProducto  />
       </FormLayout>
+
+      <EntradaProducto setExistProducto={setExistProducto} />
     </>
   );
 };

@@ -5,7 +5,7 @@ import { pool } from '../db.js';
 
 export const getEntradas = async (req, res) => {
   try {
-    const [result] = await pool.query('SELECT e.idEntrada, date_format(e.fecha , "%d-%m-%Y") AS fecha ,   u.nombre FROM entrada e  INNER JOIN usuario u ON e.usuarioEntrada = u.idUsuario;');
+    const [result] = await pool.query('SELECT e.idEntrada, date_format(e.fecha , "%d-%m-%Y") AS fecha ,   u.nombre FROM entrada e  INNER JOIN usuario u ON e.usuarioEntrada = u.idUsuario order by idEntrada');
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });

@@ -40,7 +40,7 @@ export const ProductoPage = () => {
     onSubmit: async (values) => {
       try {
         const response = await createProductoRequest(values);
-      console.log(values);
+        console.log(values);
         Swal.fire({
           title: 'Success!',
           text: 'Se ha registrado un producto',
@@ -63,93 +63,81 @@ export const ProductoPage = () => {
     <>
       <FormLayout title='Registro Producto' className='container mt-5 pt-5'>
         <form onSubmit={formik.handleSubmit}>
-          <div className='row'>
-            <div className='col-12 col-sm-7 col-md-6  m-auto '>
-              <div className='card border-0 shadow'>
-                <div className='card-body'>
-                  <label>Nombre</label>
-                  <input
-                    label='Nombre'
-                    type='text'
-                    className='form-control my-4 py-2'
-                    placeholder='Nombre del prodcuto'
-                    name='nombreProducto'
-                    value={formik.values.nombreProducto}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.nombreProducto &&
-                  formik.errors.nombreProducto ? (
-                    <div className='alert alert-danger' role='alert'>
-                      {formik.errors.nombreProducto}
-                    </div>
-                  ) : null}
-                  <label>Fecha</label>
-                  <input
-                    type='date'
-                    name='fecha'
-                    className='form-control my-4 py-2'
-                    value={formik.values.fecha}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.fecha && formik.errors.fecha ? (
-                    <div className='alert alert-danger' role='alert'>
-                      {formik.errors.fecha}
-                    </div>
-                  ) : null}
-                  <label>Categoria</label>
-                  <select
-                    label='Categoria'
-                    name='categoria'
-                    className='form-control my-4 py-2'
-                    placeholder='Selecione Categoria'
-                    value={formik.values.categoria}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  >
-                    {categorias.map((categoria) => (
-                      <option
-                        key={categoria.idCategoria}
-                        value={categoria.idCategoria}
-                      >
-                        {categoria.nombreCategoria}
-                      </option>
-                    ))}
-                  </select>
-                  {formik.touched.categoria && formik.errors.categoria ? (
-                    <div className='alert alert-danger' role='alert'>
-                      {formik.errors.categoria}
-                    </div>
-                  ) : null}
-                  <label>Marca</label>
-                  <select
-                    label='Marca'
-                    name='marca'
-                    className='form-control my-4 py-2'
-                    value={formik.values.marca}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  >
-                    {marcas.map((marca) => (
-                      <option key={marca.idMarca} value={marca.idMarca}>
-                        {marca.nombreMarca}
-                      </option>
-                    ))}
-                  </select>
-                  {formik.touched.marca && formik.errors.marca ? (
-                    <div className='alert alert-danger' role='alert'>
-                      {formik.errors.marca}
-                    </div>
-                  ) : null}
-                  <div className='text-center mt-3'>
-                    <button type='submit' className='btn btn-primary btn-lg'>
-                      Registrar
-                    </button>
-                  </div>
-                </div>
-              </div>
+          <label>Nombre</label>
+          <input
+            label='Nombre'
+            type='text'
+            className='form-control my-4 py-2'
+            placeholder='Nombre del prodcuto'
+            name='nombreProducto'
+            value={formik.values.nombreProducto}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.nombreProducto && formik.errors.nombreProducto ? (
+            <div className='alert alert-danger' role='alert'>
+              {formik.errors.nombreProducto}
             </div>
+          ) : null}
+          <label>Fecha</label>
+          <input
+            type='date'
+            name='fecha'
+            className='form-control my-4 py-2'
+            value={formik.values.fecha}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.fecha && formik.errors.fecha ? (
+            <div className='alert alert-danger' role='alert'>
+              {formik.errors.fecha}
+            </div>
+          ) : null}
+          <label>Categoria</label>
+          <select
+            label='Categoria'
+            name='categoria'
+            className='form-control my-4 py-2'
+            placeholder='Selecione Categoria'
+            value={formik.values.categoria}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          >
+            {categorias.map((categoria) => (
+              <option key={categoria.idCategoria} value={categoria.idCategoria}>
+                {categoria.nombreCategoria}
+              </option>
+            ))}
+          </select>
+          {formik.touched.categoria && formik.errors.categoria ? (
+            <div className='alert alert-danger' role='alert'>
+              {formik.errors.categoria}
+            </div>
+          ) : null}
+          <label>Marca</label>
+          <select
+            label='Marca'
+            name='marca'
+            className='form-control my-4 py-2'
+            value={formik.values.marca}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          >
+            {marcas.map((marca) => (
+              <option key={marca.idMarca} value={marca.idMarca}>
+                {marca.nombreMarca}
+              </option>
+            ))}
+          </select>
+          {formik.touched.marca && formik.errors.marca ? (
+            <div className='alert alert-danger' role='alert'>
+              {formik.errors.marca}
+            </div>
+          ) : null}
+          <div className='text-center mt-3'>
+            <button type='submit' className='btn btn-primary btn-lg'>
+              Registrar
+            </button>
           </div>
         </form>
       </FormLayout>

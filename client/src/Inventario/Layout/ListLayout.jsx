@@ -1,15 +1,9 @@
-import { Grid  } from '@mui/material';
+import { Grid } from '@mui/material';
 
-export const ListLayout = ({ children  }) => {
-
+export const ListLayout = ({ children }) => {
   return (
-    <div className='container mt-5'
-    >
-      <div
-      >
-       
-        {children}
-      </div>
+    <div className='container mt-5'>
+      <div>{children}</div>
     </div>
   );
 };
