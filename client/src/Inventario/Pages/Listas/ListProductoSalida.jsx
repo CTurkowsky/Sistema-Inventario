@@ -1,24 +1,24 @@
-import { useEntrada, useEntradaProducto } from '../../../hooks';
+import { useEntrada, useProductoSalida } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-export const ListEntradaProducto = () => {
-  const { entradasproductos, deleteEntradaProducto} = useEntradaProducto();
+export const ListProductoSalida = () => {
+  const { productossalidas, deleteProductoSalida} = useProductoSalida();
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
-  const filteredEntrada = () => {
+  const filteredSalida = () => {
     if (search.length === 0)
-      return entradasproductos.slice(currentPage, currentPage + 10);
+      return productossalidas.slice(currentPage, currentPage + 10);
 
-    const filtered = entradasproductos.filter((entrada) =>
-      entrada.nombreProducto.includes(search)
+    const filtered = productossalidas.filter((salida) =>
+      salida.nombreProducto.includes(search)
     );
     return filtered.slice(currentPage, currentPage + 10);
   };
 
   const nextPage = () => {
     if (
-      entradasproductos.filter((entrada) => entrada.nombreProducto.includes(search)).length >
+      productossalidas.filter((salida) => salida.nombreProducto.includes(search)).length >
       
       currentPage + 10
     )
@@ -49,37 +49,39 @@ export const ListEntradaProducto = () => {
                 <tr>
                   <th scope='col'>ID Detalle</th>
                   <th scope='col'>ID Producto</th>
-                  <th scope='col'>ID Entrada</th>
+                  <th scope='col'>ID Salida</th>
                   <th scope='col'>Nombre Producto</th>
                   <th scope='col'>Cantidad</th>
                   <th scope='col'>Fecha</th>
+                  <th scope='col'>Area</th>
                   <th scope='col'>Usuario</th>
                   <th scope='col'>Acciones</th>
                 </tr>
               </thead>
 
               <tbody>
-                {filteredEntrada().map((entrada) => (
-                  <tr key={entrada.idEntradaProducto}>
-                    <td>{entrada.idEntradaProducto}</td>
-                    <td>{entrada.producto}</td>
-                    <td>{entrada.entrada}</td>
-                    <td>{entrada.nombreProducto}</td>
-                    <td>{entrada.cantidad}</td>
-                    <td>{entrada.fecha}</td>
-                    <td>{entrada.nombre}</td>
+                {filteredSalida().map((salida) => (
+                  <tr key={salida.idProductoSalida}>
+                    <td>{salida.idProductoSalida}</td>
+                    <td>{salida.producto}</td>
+                    <td>{salida.salida}</td>
+                    <td>{salida.nombreProducto}</td>
+                    <td>{salida.cantidad}</td>
+                    <td>{salida.fecha}</td>
+                    <td>{salida.nombreArea}</td>
+                    <td>{salida.nombre}</td>
 
                     <td>
                       <button
                         className='btn btn-warning m-2'
-                        onClick={() => navigate(`/edit/${entrada.idEntrada}`)}
+                        onClick={() => navigate(`/edit/${salida.idProductoSalida}`)}
                       >
                         Editar
                       </button>
 
                       <button
                         className='btn btn-danger'
-                        onClick={() => deleteEntradaProducto(entrada.idEntradaProducto)}
+                        onClick={() => deleteProductoSalida(salida.idProductoSalida)}
                       >
                         Eliminar
                       </button>

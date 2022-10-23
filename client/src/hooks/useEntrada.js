@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getEntradasRequest, deleteEntradaRequest } from '../api/entrada.api';
 
-export const useEntrada= () => {
+export const useEntrada = () => {
   const [entradas, setEntradas] = useState([]);
   useEffect(() => {
     const getEntradas = async () => {
@@ -9,9 +9,9 @@ export const useEntrada= () => {
       setEntradas(response.data);
     };
     getEntradas();
-  }, []);
+  }, [entradas]);
 
- const deleteEntrada= async (id) => {
+  const deleteEntrada = async (id) => {
     try {
       const response = await deleteEntradaRequest(id);
       setEntradas(entradas.filter((entrada) => entrada.idEntrada !== id));
@@ -19,8 +19,9 @@ export const useEntrada= () => {
       console.error(error);
     }
   };
+
   return {
-    entradas,deleteEntrada
+    entradas,
+    deleteEntrada,
   };
 };
-

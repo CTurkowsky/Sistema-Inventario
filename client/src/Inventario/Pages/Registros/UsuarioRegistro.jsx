@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { createUsuarioRequest } from '../../../api/usuario.api';
 import { FormLayout } from '../../Layout/FormLayout';
 import { useUsuarios } from '../../../hooks';
-export const RegistroPage = () => {
+export const UsuarioRegistro = () => {
   const { usuarios } = useUsuarios();
   const formik = useFormik({
     initialValues: {
@@ -57,8 +57,9 @@ export const RegistroPage = () => {
   });
 
   return (
-    <FormLayout title='Registro'>
+    <FormLayout titulo='Registro'>
       <form onSubmit={formik.handleSubmit}>
+        <label>Nombre</label>
         <input
           label='Nombre'
           type='text'
@@ -73,6 +74,7 @@ export const RegistroPage = () => {
           <div className='alert alert-danger'>{formik.errors.nombre}</div>
         ) : null}
 
+        <label>Apellido Paterno</label>
           <input
             label='Apellido Paterno'
             type='text'
@@ -88,6 +90,7 @@ export const RegistroPage = () => {
               {formik.errors.apellidoPaterno}
             </div>
           ) : null}
+        <label>Apellido Materno</label>
           <input
             label='Apellido Materno'
             type='text'
@@ -103,6 +106,7 @@ export const RegistroPage = () => {
               {formik.errors.apellidoMaterno}
             </div>
           ) : null}
+        <label>Correo</label>
           <input
             label='Correo'
             type='email'
@@ -117,6 +121,7 @@ export const RegistroPage = () => {
           {formik.touched.correo && formik.errors.correo ? (
             <div className='alert alert-danger'>{formik.errors.correo}</div>
           ) : null}
+        <label>Contraseña</label>
           <input
             label='Contraseña'
             type='password'
@@ -131,7 +136,7 @@ export const RegistroPage = () => {
             <div className='alert alert-danger'>{formik.errors.contrasena}</div>
           ) : null}
           <div className='d-flex flex-column'>
-            <button className='btn btn-primary'>Crear Cuenta</button>
+            <button className='btn btn-primary mb-2'>Crear Cuenta</button>
             <RouterLink to='/login' className='btn btn-primary'>
               Ingresar
             </RouterLink>

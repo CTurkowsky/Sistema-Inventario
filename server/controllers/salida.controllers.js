@@ -6,7 +6,7 @@ import { pool } from '../db.js';
 export const getSalidas = async (req, res) => {
   try {
     const [result] = await pool.query(
-      'SELECT s.idSalida, s.cantidad, date_format(s.fecha  , "%d-%m-%Y") AS fecha  ,  p.nombreProducto, u.nombre, a.nombreArea FROM salida s INNER JOIN producto p ON  s.producto = p.idProducto INNER JOIN usuario u ON s.usuario = u.idUsuario INNER JOIN area a ON s.area = a.idArea'
+      ' SELECT s.idSalida, date_format(s.fecha , "%d-%m-%Y") AS fecha, a.nombreArea , u.nombre FROM salida s  INNER JOIN usuario u ON s.usuarioSalida = u.idUsuario INNER JOIN area a ON s.area = a.idArea order by idSalida;'
     );
     res.json(result);
   } catch (error) {
@@ -35,18 +35,16 @@ export const getSalida = async (req, res) => {
 
 export const createSalida = async (req, res) => {
   try {
-    const { fecha, cantidad, usuario, producto, area } = req.body;
+    const { fecha , usuarioSalida,  area } = req.body;
     const [result] = await pool.query(
-      'INSERT INTO SALIDA (fecha, cantidad, usuario, producto, area  ) VALUES (?,?,?,?,?)',
-      [fecha, cantidad, usuario, producto, area]
+      'INSERT INTO SALIDA (fecha,  usuarioSalida,  area  ) VALUES (?,?,?)',
+      [fecha, usuarioSalida, area]
     );
 
     res.json({
       idEntrada: result.insertId,
       fecha,
-      cantidad,
-      usuario,
-      producto,
+      usuarioSalida,
       area,
     });
   } catch (error) {

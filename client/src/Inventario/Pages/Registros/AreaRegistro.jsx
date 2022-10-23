@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as YUP from 'yup';
 import Swal from 'sweetalert2';
 import { useAreas } from '../../../hooks';
-export const AreaPage = () => {
+export const AreaRegistro = () => {
   const { areas } = useAreas();
   const formik = useFormik({
     initialValues: {
@@ -48,7 +48,7 @@ export const AreaPage = () => {
   });
 
   return (
-      <FormLayout title='Registro Area'>
+      <FormLayout titulo='Registro Area'>
         <form onSubmit={formik.handleSubmit}>
           <input
             label='Nombre Area'

@@ -6,3 +6,4 @@ export * from './useSalida';
 export * from './useUsuario';
 export * from './useArea';
 export * from './useEntradaProducto';
+export * from './useProductoSalida';

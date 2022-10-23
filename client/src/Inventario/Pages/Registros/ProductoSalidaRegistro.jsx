@@ -1,24 +1,21 @@
-import { useProductos, useEntrada } from '../../../hooks';
-import { createEntradaProductoRequest } from '../../../api/entradaproducto.api';
+import { useProductos, useSalida } from '../../../hooks';
+import { createProductoSalidaRequest } from '../../../api/productosalida.api';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as YUP from 'yup';
 import Swal from 'sweetalert2';
 import { FormLayout } from '../../Layout/FormLayout';
-export const EntradaProducto = ({ setExistProducto }) => {
+export const ProductoSalidaRegistro = () => {
   const { productos } = useProductos();
-  const { entradas } = useEntrada();
+  const { salidas } = useSalida();
   const [productoFiltered, setProductoFiltered] = useState([]);
-  const lastEntrada = [entradas.findLast((entrada) => entrada.idEntrada)]
+  const [idSalida, setIdSalida] = useState('');
   const [product, setProduct] = useState([]);
 
-  const map = ()=>{
-    const id = lastEntrada.map(item => {return item.idEntrada})
-    console.log(id)
-  }
-  if (product.length > 0) {
-    setExistProducto(true);
-  }
+  useEffect(() => {
+    setIdSalida(salidas.length > 0 ? salidas.at(-1).idSalida : '');
+  }, [salidas]);
+
   const filtrarProducto = (idProducto) => {
     const filtered = productos.find(
       (producto) => producto.idProducto == idProducto
@@ -55,7 +52,7 @@ export const EntradaProducto = ({ setExistProducto }) => {
       }
       const registerproducto = await Promise.all(
         product.map(async (producto) => {
-          await createEntradaProductoRequest(producto);
+          await createProductoSalidaRequest(producto);
           setProduct([]);
           setProductoFiltered([]);
           return Swal.fire({
@@ -80,8 +77,9 @@ export const EntradaProducto = ({ setExistProducto }) => {
     initialValues: {
       cantidad: '',
       producto: '',
-      entrada: 19,
+      salida: idSalida,
     },
+    enableReinitialize: true,
     validationSchema: YUP.object({
       cantidad: YUP.number()
         .required('La cantidad es requerida')
@@ -91,11 +89,8 @@ export const EntradaProducto = ({ setExistProducto }) => {
 
     onSubmit: (values) => {
       try {
-        console.log(values);
         addProducto(values);
-        console.log(product);
         filtrarProducto(values.producto);
-        console.log(productoFiltered);
         formik.resetForm();
       } catch (error) {
         Swal.fire({
@@ -108,8 +103,10 @@ export const EntradaProducto = ({ setExistProducto }) => {
     },
   });
   return (
-    <FormLayout title='Agregar Productos'>
+    <FormLayout titulo='Agregar Producto a Entrada'>
       <form onSubmit={formik.handleSubmit}>
+        <h3>Ultima Salida:</h3>
+        <h4>{idSalida}</h4>
         <label>Cantidad</label>
         <input
           type='number'
@@ -149,7 +146,11 @@ export const EntradaProducto = ({ setExistProducto }) => {
           <button type='submit' className='btn btn-primary m-4'>
             Agregar
           </button>
-          <button type='submit' className='btn btn-primary m-4' onClick={resetProducto}>
+          <button
+            type='submit'
+            className='btn btn-primary m-4'
+            onClick={resetProducto}
+          >
             Limpiar
           </button>
         </div>
@@ -158,7 +159,7 @@ export const EntradaProducto = ({ setExistProducto }) => {
             <tr>
               <th scope='col'>ID</th>
               <th scope='col'>Nombre Producto</th>
-              <th scope='col'>Cantidad</th>
+              <th scope='col'>Stock</th>
               <th scope='col'>Categoria</th>
               <th scope='col'>Marca</th>
             </tr>

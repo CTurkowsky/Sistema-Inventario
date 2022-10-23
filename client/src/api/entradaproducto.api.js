@@ -1,5 +1,5 @@
 import axios from 'axios';
-export const getEntradaProductoRequest= async () =>
+export const getEntradaProductosRequest= async () =>
   await axios.get('http://localhost:5000/entradaproducto');
 export const createEntradaProductoRequest= async (entradaproducto) =>
   await axios.post('http://localhost:5000/entradaproducto', entradaproducto);

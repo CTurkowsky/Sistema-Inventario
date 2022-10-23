@@ -4,7 +4,7 @@ import * as YUP from 'yup';
 import { useCategorias } from '../../../hooks';
 import { createCategoriaRequest } from '../../../api/categoria.api';
 import Swal from 'sweetalert2';
-export const CategoriaPage = () => {
+export const CategoriaRegistro = () => {
   const { categorias } = useCategorias();
 
   const formik = useFormik({
@@ -52,7 +52,7 @@ export const CategoriaPage = () => {
   });
 
   return (
-    <FormLayout title='Registro Categoria'>
+    <FormLayout titulo='Registro Categoria'>
       <form onSubmit={formik.handleSubmit}>
         <label className='form-floating my-4 p-2'>Categoria</label>
         <input

@@ -127,8 +127,16 @@ export const Navbar = () => {
               </a>
               <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
                 <li>
-                  <RouterLink to='/entrada' className='dropdown-item'>
-                    Registro
+                  <RouterLink to='/entradaregistro' className='dropdown-item'>
+                    Registro Entrada
+                  </RouterLink>
+                </li>
+                <li>
+                  <RouterLink
+                    to='/entradaproductoregistro'
+                    className='dropdown-item'
+                  >
+                    Agregar Producto Entrada
                   </RouterLink>
                 </li>
                 <li>
@@ -137,7 +145,10 @@ export const Navbar = () => {
                   </RouterLink>
                 </li>
                 <li>
-                  <RouterLink to='/entradaproductolist' className='dropdown-item'>
+                  <RouterLink
+                    to='/entradaproductolist'
+                    className='dropdown-item'
+                  >
                     Lista Entrada Producto
                   </RouterLink>
                 </li>
@@ -157,19 +168,27 @@ export const Navbar = () => {
               <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
                 <li>
                   <RouterLink to='/salida' className='dropdown-item'>
-                    Registro
+                    Registro Salida
+                  </RouterLink>
+                </li>
+
+                <li>
+                  <RouterLink to='/productosalidaregistro' className='dropdown-item'>
+                    Registro Producto Salida
                   </RouterLink>
                 </li>
                 <li>
                   <RouterLink to='/salidalist' className='dropdown-item'>
-                    Lista
+                    Lista Salida
+                  </RouterLink>
+                </li>
+                <li>
+                  <RouterLink to='/productosalidalist' className='dropdown-item'>
+                    Lista Producto Salida
                   </RouterLink>
                 </li>
               </ul>
- 
             </li>
-
-
 
             <li className='nav-item dropdown'>
               <a
@@ -194,7 +213,6 @@ export const Navbar = () => {
                   </RouterLink>
                 </li>
               </ul>
- 
             </li>
           </ul>
         </div>

@@ -4,9 +4,8 @@ import { useFormik } from 'formik';
 import * as YUP from 'yup';
 import Swal from 'sweetalert2';
 import { useMarcas } from '../../../hooks';
-export const MarcaPage = () => {
+export const MarcaRegistro = () => {
   const { marcas } = useMarcas();
-  const validMarca = () => {};
   const formik = useFormik({
     initialValues: {
       nombreMarca: '',
@@ -48,7 +47,7 @@ export const MarcaPage = () => {
   });
 
   return (
-    <FormLayout title='Registro Marca'>
+    <FormLayout titulo='Registro Marca'>
       <form onSubmit={formik.handleSubmit}>
         <label className='form-floating my-2 p-2'>Marca</label>
         <input

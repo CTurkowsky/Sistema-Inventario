@@ -1,14 +1,14 @@
 import { createEntradaRequest } from '../../../api/entrada.api';
-import { EntradaProducto } from './EntradaProducto';
 import { FormLayout } from '../../Layout/FormLayout';
 import Swal from 'sweetalert2';
 import { useFormik } from 'formik';
+import { useNavigate } from "react-router-dom";
 import { useUsuarios } from '../../../hooks';
-import { useState } from 'react';
 import * as YUP from 'yup';
 export const EntradaRegistro = () => {
   const { usuarios } = useUsuarios();
-  const [existProducto, setExistProducto] = useState(false);
+   const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       fecha: '',
@@ -20,20 +20,13 @@ export const EntradaRegistro = () => {
     }),
 
     onSubmit: async (values) => {
-      console.log(values);
       try {
-        if (existProducto === false) {
-          return Swal.fire({
-            title: 'Error!',
-            text: 'La entrada necesita productos',
-            icon: 'error',
-            confirmButtonText: 'Aceptar',
-          });
-        }
+      
         const response = await createEntradaRequest(values);
+        navigate("/entradaproductoregistro");
         Swal.fire({
           title: 'Success!',
-          text: 'Se ha registrado una entrada',
+          text: 'Se ha registrado la entrada',
           icon: 'success',
           confirmButtonText: 'Aceptar',
         });
@@ -51,7 +44,7 @@ export const EntradaRegistro = () => {
 
   return (
     <>
-      <FormLayout title='Registrar Entrada'>
+      <FormLayout titulo='Registrar Entrada'>
         <form onSubmit={formik.handleSubmit}>
           <label>Fecha</label>
           <input
@@ -99,8 +92,6 @@ export const EntradaRegistro = () => {
           </div>
         </form>
       </FormLayout>
-
-      <EntradaProducto setExistProducto={setExistProducto} />
     </>
   );
 };

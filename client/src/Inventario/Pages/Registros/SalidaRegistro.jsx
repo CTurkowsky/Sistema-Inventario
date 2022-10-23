@@ -1,28 +1,23 @@
 import { FormLayout } from '../../Layout/FormLayout';
 import { createSalidaRequest } from '../../../api/salida.api';
-import { useProductos, useUsuarios, useAreas } from '../../../hooks';
+import { useUsuarios, useAreas } from '../../../hooks';
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import * as YUP from 'yup';
 import Swal from 'sweetalert2';
-export const SalidaPage = () => {
+export const SalidaRegistro = () => {
   const { areas } = useAreas();
-  const { productos } = useProductos();
   const { usuarios } = useUsuarios();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       fecha: '',
-      cantidad: '',
-      producto: '',
-      usuario: '',
+      usuarioSalida: '',
       area: '',
     },
     validationSchema: YUP.object({
       fecha: YUP.date().required('La fecha  es requerida'),
-      cantidad: YUP.number()
-        .required('La descripcion es requerido')
-        .positive('El numero debe ser valido'),
-      producto: YUP.string().required('El producto es requerido'),
-      usuario: YUP.number().required('El usuario  es requerido'),
+      usuarioSalida: YUP.number().required('El usuario  es requerido'),
       area: YUP.string().required('El area es requerido'),
     }),
 
@@ -30,6 +25,7 @@ export const SalidaPage = () => {
       console.log(values);
       try {
         const response = await createSalidaRequest(values);
+        navigate("/productosalidaregistro");
         Swal.fire({
           title: 'Success!',
           text: 'Se ha registrado una salida',
@@ -49,7 +45,7 @@ export const SalidaPage = () => {
   });
   return (
     <>
-      <FormLayout title='Registro Salida'>
+      <FormLayout titulo='Registro Salida'>
         <form onSubmit={formik.handleSubmit}>
           <label>Fecha</label>
           <input
@@ -63,61 +59,29 @@ export const SalidaPage = () => {
           {formik.touched.fecha && formik.errors.fecha ? (
             <div className='alert alert-danger'>{formik.errors.fecha}</div>
           ) : null}
-          <label>Cantidad</label>
-          <input
-            label='Cantidad'
-            name='cantidad'
-            type='number'
-            className='form-control my-4 py-2'
-            value={formik.values.cantidad}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.cantidad && formik.errors.cantidad ? (
-            <div className='alert alert-danger'>{formik.errors.cantidad}</div>
-          ) : null}
-          <label>Producto</label>
-          <select
-            label='Producto'
-            name='producto'
-            className='form-control my-4 py-2'
-            value={formik.values.producto}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          >
-            {productos.map((producto) => {
-              if (producto.stock > 0)
-                return (
-                  <option key={producto.idProducto} value={producto.idProducto}>
-                    {producto.nombreProducto +
-                      '-' +
-                      producto.nombreCategoria +
-                      '-' +
-                      producto.nombreMarca}
-                  </option>
-                );
-            })}
-          </select>
-          {formik.touched.producto && formik.errors.producto ? (
-            <div className='alert alert-danger'>{formik.errors.producto}</div>
-          ) : null}
           <label>Usuario</label>
           <select
             label='Usuario'
-            name='usuario'
+            name='usuarioSalida'
             className='form-control my-4 py-2'
-            value={formik.values.usuario}
+            value={formik.values.usuarioSalida}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           >
             {usuarios.map((usuario) => (
               <option key={usuario.idUsuario} value={usuario.idUsuario}>
-                {usuario.nombre}
+                {usuario.nombre +
+                  ' ' +
+                  usuario.apellidoPaterno +
+                  ' ' +
+                  usuario.apellidoMaterno}
               </option>
             ))}
           </select>
-          {formik.touched.usuario && formik.errors.usuario ? (
-            <div className='alert alert-danger'>{formik.errors.usuario}</div>
+          {formik.touched.usuarioSalida && formik.errors.usuarioSalida ? (
+            <div className='alert alert-danger'>
+              {formik.errors.usuarioSalida}
+            </div>
           ) : null}
 
           <label>Area</label>

@@ -46,7 +46,7 @@ export const ListProductos = () => {
     <>
       <div className='container'>
         <div className='row'>
-          <div className=' col-12 col-sm-7 col-md-6  m-auto mt-4 '>
+          <div className=' col-lg-12 mt-5'>
 
             <h2 className='text-center'>LISTA DE PRODUCTOS</h2>
             <div className='d-flex m-2 align-items-center p-4'>

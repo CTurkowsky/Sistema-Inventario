@@ -6,7 +6,7 @@ import * as YUP from 'yup';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useState, useEffect } from 'react';
-export const ProductoPage = () => {
+export const ProductoRegistro = () => {
   const { marcas } = useMarcas();
   const { productos, getProducto } = useProductos();
   const { categorias } = useCategorias();
@@ -61,7 +61,7 @@ export const ProductoPage = () => {
 
   return (
     <>
-      <FormLayout title='Registro Producto' className='container mt-5 pt-5'>
+      <FormLayout titulo='Registro Producto' className='container mt-5 pt-5'>
         <form onSubmit={formik.handleSubmit}>
           <label>Nombre</label>
           <input

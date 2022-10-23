@@ -1,43 +1,55 @@
 import { Routes, Route } from 'react-router-dom';
 import {
-  CategoriaPage,
-  SalidaPage,
-  EntradaPage,
-  ProductoPage,
-  MarcaPage,
-  AreaPage,
+  CategoriaRegistro,
+  SalidaRegistro,
+  ProductoRegistro,
+  MarcaRegistro,
+  AreaRegistro,
   InicioSesionPage,
-  RegistroPage,
+  EntradaProductoRegistro,
+  ProductoSalidaRegistro,
+  UsuarioRegistro,
 } from '../Inventario/Pages/Registros';
 import {
   ListProductos,
   ListEntrada,
   ListEntradaProducto,
+  ListProductoSalida,
   ListSalida,
   ListCategoria,
   ListMarca,
   ListArea,
 } from '../Inventario/Pages/Listas';
+import { EntradaRegistro } from '../Inventario/Pages/Registros/EntradaRegistro';
 
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path='/*' element={<ProductoPage />} />
-      <Route path='/edi/:id' element={<ProductoPage />} />
+      <Route path='/*' element={<ProductoRegistro />} />
+      <Route path='/edi/:id' element={<ProductoRegistro />} />
       <Route path='/list' element={<ListProductos />} />
       <Route path='/categorialist' element={<ListCategoria />} />
       <Route path='/marcalist' element={<ListMarca />} />
       <Route path='/entradalist' element={<ListEntrada />} />
       <Route path='/entradaproductolist' element={<ListEntradaProducto />} />
+      <Route path='/productosalidalist' element={<ListProductoSalida />} />
       <Route path='/arealist' element={<ListArea />} />
       <Route path='/salidalist' element={<ListSalida />} />
-      <Route path='/marca' element={<MarcaPage />} />
-      <Route path='/categoria' element={<CategoriaPage />} />
-      <Route path='/entrada' element={<EntradaPage />} />
-      <Route path='/area' element={<AreaPage />} />
-      <Route path='/salida' element={<SalidaPage />} />
+      <Route path='/marca' element={<MarcaRegistro />} />
+      <Route path='/categoria' element={<CategoriaRegistro />} />
+      <Route path='/entradaregistro' element={<EntradaRegistro />} />
+      <Route
+        path='/entradaproductoregistro'
+        element={<EntradaProductoRegistro />}
+      />
+      <Route
+        path='/productosalidaregistro'
+        element={<ProductoSalidaRegistro />}
+      />
+      <Route path='/area' element={<AreaRegistro />} />
+      <Route path='/salida' element={<SalidaRegistro />} />
       <Route path='/login' element={<InicioSesionPage />} />
-      <Route path='/registro' element={<RegistroPage />} />
+      <Route path='/registro' element={<UsuarioRegistro />} />
     </Routes>
   );
 };

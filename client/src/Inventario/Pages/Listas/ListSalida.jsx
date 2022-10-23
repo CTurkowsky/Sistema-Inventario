@@ -48,11 +48,9 @@ export const ListSalida = () => {
             <thead>
               <tr>
                 <th scope='col'>ID</th>
-                <th scope='col'>Nombre Prodcuto</th>
-                <th scope='col'>Cantidad</th>
                 <th scope='col'>Fecha</th>
-                <th scope='col'>Usuario</th>
                 <th scope='col'>Area</th>
+                <th scope='col'>Usuario</th>
                 <th scope='col'>Acciones</th>
               </tr>
             </thead>
@@ -61,11 +59,9 @@ export const ListSalida = () => {
               {filteredSalida().map((salida) => (
                 <tr key={salida.idSalida}>
                   <th scope='row'>{salida.idSalida}</th>
-                  <td>{salida.nombreProducto}</td>
-                  <td>{salida.cantidad}</td>
                   <td>{salida.fecha}</td>
-                  <td>{salida.nombre}</td>
                   <td>{salida.nombreArea}</td>
+                  <td>{salida.nombre}</td>
                   <td>
                     <button
                       className='btn btn-warning m-2'
