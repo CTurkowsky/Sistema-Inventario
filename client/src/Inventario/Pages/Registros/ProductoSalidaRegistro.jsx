@@ -16,7 +16,7 @@ export const ProductoSalidaRegistro = () => {
     setIdSalida(salidas.length > 0 ? salidas.at(-1).idSalida : '');
   }, [salidas]);
 
-  const filtrarProducto = (idProducto) => {
+  const filtrarProducto = (idProducto, cantidad) => {
     const filtered = productos.find(
       (producto) => producto.idProducto == idProducto
     );
@@ -27,11 +27,28 @@ export const ProductoSalidaRegistro = () => {
         icon: 'error',
         confirmButtonText: 'Aceptar',
       });
+    const producto = productos.find(
+      (producto) => producto.idProducto == idProducto
+    );
+    const stock = producto.stock;
+    if (cantidad > stock)
+      return Swal.fire({
+        title: 'Error!',
+        text: 'Stock insuficiente',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
     setProductoFiltered([...productoFiltered, filtered]);
   };
+
   const addProducto = (newProducto) => {
     if (product.find((producto) => producto.producto === newProducto.producto))
       return;
+    const producto = productos.find(
+      (producto) => producto.idProducto == newProducto.producto
+    );
+    const stock = producto.stock;
+    if (newProducto.cantidad > stock) return;
     setProduct([newProducto, ...product]);
   };
 
@@ -89,8 +106,10 @@ export const ProductoSalidaRegistro = () => {
 
     onSubmit: (values) => {
       try {
+        // getStockProducto(values.producto, values.cantidad);
         addProducto(values);
-        filtrarProducto(values.producto);
+        filtrarProducto(values.producto, values.cantidad);
+
         formik.resetForm();
       } catch (error) {
         Swal.fire({
