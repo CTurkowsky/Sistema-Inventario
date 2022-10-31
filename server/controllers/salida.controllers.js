@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import { pool } from '../db.js';
 
-// Consulta por todos los equipos informaticos
-
+//Obtiene Salidas
 export const getSalidas = async (req, res) => {
   try {
     const [result] = await pool.query(
@@ -14,8 +13,7 @@ export const getSalidas = async (req, res) => {
   }
 };
 
-// Consulta por id un  equipo informatico
-
+//Obtiene una Salida
 export const getSalida = async (req, res) => {
   try {
     const [result] = await pool.query(
@@ -31,8 +29,7 @@ export const getSalida = async (req, res) => {
   }
 };
 
-// Crea un equipo informatico
-
+// Crea una Salida
 export const createSalida = async (req, res) => {
   try {
     const { fecha , usuarioSalida,  area } = req.body;
@@ -52,8 +49,7 @@ export const createSalida = async (req, res) => {
   }
 };
 
-//Actualiza un atributo de un equipo informatico
-
+//Actualiza un atributo de una Salida
 export const updateSalida = async (req, res) => {
   try {
     const result = await pool.query('UPDATE SALIDA SET ? WHERE idSalida = ?', [
@@ -66,7 +62,7 @@ export const updateSalida = async (req, res) => {
   }
 };
 
-//Elimina un equipo informatico por id
+//Elimina una Salida por id
 export const deleteSalida = async (req, res) => {
   try {
     const [result] = await pool.query('DELETE FROM SALIDA WHERE idSalida = ?', [

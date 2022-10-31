@@ -11,12 +11,14 @@ import salidaRoutes from './routes/salida.routes.js'
 import productoRoutes from './routes/producto.routes.js'
 import productosalidaRoutes from './routes/producto_salida.routes.js'
 import entradaproductoRoutes from './routes/entrada_producto.routes.js'
+import authRoutes from './routes/auth.routes.js'
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(indexRoutes);
 app.use(categoriaRoutes);
 app.use(marcaRoutes);
+app.use(authRoutes);
 app.use(entradaRoutes);
 app.use(salidaRoutes);
 app.use(areaRoutes);

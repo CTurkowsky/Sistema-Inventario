@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import { pool } from '../db.js';
 
-// Crear un area 
-
+//Crea una area
 export const createArea = async (req, res) => {
   try {
     const { nombreArea } = req.body;
@@ -20,8 +19,7 @@ export const createArea = async (req, res) => {
   }
 };
 
-// Obtener Areas
-
+//Obtiene todas las Areas
 export const getAreas = async (req, res) => {
   try {
     const [result] = await pool.query('SELECT * FROM AREA');
@@ -31,7 +29,7 @@ export const getAreas = async (req, res) => {
   }
 };
 
-
+//Borra un Area por id
 export const deleteArea = async (req, res) => {
   try {
     const [result] = await pool.query('DELETE FROM AREA WHERE idArea = ?', [

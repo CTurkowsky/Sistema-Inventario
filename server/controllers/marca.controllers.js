@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { pool } from '../db.js';
 
-// Crea marca
+// Crea Marca
 export const createMarca = async (req, res) => {
   try {
     const { nombreMarca } = req.body;
@@ -19,7 +19,7 @@ export const createMarca = async (req, res) => {
   }
 };
 
-//Obtiene todas las marcas
+//Obtiene todas las Marcas
 export const getMarcas = async (req, res) => {
   try {
     const [result] = await pool.query('SELECT * FROM MARCA');
@@ -29,6 +29,7 @@ export const getMarcas = async (req, res) => {
   }
 };
 
+//Elimina una Marca
 export const deleteMarca = async (req, res) => {
   try {
     const [result] = await pool.query(

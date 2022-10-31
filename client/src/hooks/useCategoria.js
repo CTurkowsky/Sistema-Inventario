@@ -13,7 +13,7 @@ export const useCategorias = () => {
  const deleteCategoria= async (id) => {
     try {
       const response = await deleteCategoriaRequest(id);
-      setCategorias(categoria.filter((categoria) => categoria.idCategoria!== id));
+      setCategorias(categorias.filter((categoria) => categoria.idCategoria!== id));
     } catch (error) {
       console.error(error);
     }

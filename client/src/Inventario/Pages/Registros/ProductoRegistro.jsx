@@ -10,11 +10,30 @@ export const ProductoRegistro = () => {
   const { marcas } = useMarcas();
   const { productos, getProducto } = useProductos();
   const { categorias } = useCategorias();
+ const [producto, setProducto] = useState({
+      nombreProducto: '',
+      stock: 0,
+      fecha: '',
+      categoria: '',
+      marca: '',
+  });
   const params = useParams();
-  useEffect(() => {
-    if (params.id) {
-      console.log('Cargando datos');
-    }
+
+    useEffect(() => {
+    const loadProducto = async () => {
+      if (params.id) {
+        const producto = await getProducto(params.id);
+        console.log(producto);
+      // setProducto({
+      // nombreProducto: producto.nombreProducto,
+      // stock: producto.stock,
+      // fecha: producto.fecha,
+      // categoria: producto.nombreCategoria,
+      // marca: producto.nombreMarca,
+      // })
+      }
+    };
+    loadProducto();
   }, []);
 
   const formik = useFormik({
@@ -61,7 +80,10 @@ export const ProductoRegistro = () => {
 
   return (
     <>
-      <FormLayout titulo='Registro Producto' className='container mt-5 pt-5'>
+      <FormLayout
+        titulo={params.id ? 'Editar Producto ' : 'Registrar Producto'}
+        className='container mt-5 pt-5'
+      >
         <form onSubmit={formik.handleSubmit}>
           <label>Nombre</label>
           <input

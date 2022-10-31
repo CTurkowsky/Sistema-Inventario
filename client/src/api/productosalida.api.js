@@ -4,5 +4,5 @@ export const getProductosSalidasRequest= async () =>
 export const createProductoSalidaRequest= async (productosalida) =>
   await axios.post('http://localhost:5000/productosalida', productosalida);
 export const deleteProductoSalidaRequest= async (id) =>
-  await axios.delete(`http://localhost:5000/entradaproducto/${id}`);
+  await axios.delete(`http://localhost:5000/productosalida/${id}`);
 

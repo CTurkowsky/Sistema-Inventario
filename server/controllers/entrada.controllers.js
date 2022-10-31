@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import { pool } from '../db.js';
 
-// Consulta por todos las  entradas
-
+//Crea Entradas
 export const getEntradas = async (req, res) => {
   try {
     const [result] = await pool.query('SELECT e.idEntrada, date_format(e.fecha , "%d-%m-%Y") AS fecha ,   u.nombre FROM entrada e  INNER JOIN usuario u ON e.usuarioEntrada = u.idUsuario order by idEntrada');
@@ -12,8 +11,7 @@ export const getEntradas = async (req, res) => {
   }
 };
 
-// Consulta por id una entrada
-
+//Obtiene una Entrada
 export const getEntrada = async (req, res) => {
   try {
     const [result] = await pool.query(
@@ -29,8 +27,7 @@ export const getEntrada = async (req, res) => {
   }
 };
 
-// Crea una entrada 
-
+// Crea una Entrada 
 export const createEntrada = async (req, res) => {
   try {
     const { fecha,  usuarioEntrada } = req.body;
@@ -49,8 +46,7 @@ export const createEntrada = async (req, res) => {
   }
 };
 
-//Actualiza un atributo de una entrada
-
+//Actualiza un atributo de una Entrada
 export const updateEntrada = async (req, res) => {
   try {
     const result = await pool.query(
@@ -63,7 +59,7 @@ export const updateEntrada = async (req, res) => {
   }
 };
 
-//Elimina una entrada
+//Elimina una Entrada
 export const deleteEntrada = async (req, res) => {
   try {
     const [result] = await pool.query(

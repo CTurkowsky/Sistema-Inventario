@@ -2,11 +2,13 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
 import Swal from 'sweetalert2';
-import { createUsuarioRequest } from '../../../api/usuario.api';
+import { createUserRequest } from '../../../api/auth.api';
 import { FormLayout } from '../../Layout/FormLayout';
 import { useUsuarios } from '../../../hooks';
+import { useNavigate } from 'react-router-dom';
 export const UsuarioRegistro = () => {
   const { usuarios } = useUsuarios();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       nombre: '',
@@ -29,8 +31,6 @@ export const UsuarioRegistro = () => {
         .required('El nombre es requerido'),
       correo: YUP.string()
         .email()
-        .min(3, 'El corre tener mas de 3 caracteres')
-        .max(20, 'El nombre debe tener maximo  20 caracteres')
         .required('El nombre es requerido'),
       contrasena: YUP.string()
         .min(3, 'La contraseña tener mas de 4 caracteres')
@@ -48,7 +48,8 @@ export const UsuarioRegistro = () => {
             icon: 'error',
             confirmButtonText: 'Aceptar',
           });
-        const response = await createUsuarioRequest(values);
+        const response = await createUserRequest(values);
+        navigate("/login");
         formik.resetForm();
       } catch (error) {
         console.log(error);
@@ -136,7 +137,7 @@ export const UsuarioRegistro = () => {
             <div className='alert alert-danger'>{formik.errors.contrasena}</div>
           ) : null}
           <div className='d-flex flex-column'>
-            <button className='btn btn-primary mb-2'>Crear Cuenta</button>
+            <button type='submit'className='btn btn-primary mb-2'>Crear Cuenta</button>
             <RouterLink to='/login' className='btn btn-primary'>
               Ingresar
             </RouterLink>

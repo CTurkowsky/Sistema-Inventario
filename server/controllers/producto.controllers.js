@@ -1,17 +1,6 @@
 import { Router } from 'express';
 import { pool } from '../db.js';
 
-// Consulta por todos los equipos informaticos
-/*
-export const getProductos = async (req, res) => {
-  try {
-    const [result] = await pool.query('SELECT * FROM PRODUCTO');
-    res.json(result);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
-*/
 // Obtiene todos los productos
 export const getProductos = async (req, res) => {
   try {
@@ -24,8 +13,7 @@ export const getProductos = async (req, res) => {
   }
 };
 
-// Consulta por id un producto 
-
+//Obtiene un producto
 export const getProducto = async (req, res) => {
   try {
     const [result] = await pool.query(
@@ -41,8 +29,7 @@ export const getProducto = async (req, res) => {
   }
 };
 
-// Crea un equipo informatico
-
+// Crea un producto
 export const createProducto = async (req, res) => {
   try {
     const { nombreProducto, stock, fecha, marca, categoria } = req.body;
@@ -64,8 +51,7 @@ export const createProducto = async (req, res) => {
   }
 };
 
-//Actualiza un atributo de un equipo informatico
-
+//Actualiza un atributo de un producto
 export const updateProducto = async (req, res) => {
   try {
     const result = await pool.query(
@@ -77,6 +63,7 @@ export const updateProducto = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
 export const updateStock = async (req, res) => {
   try {
     const { idProducto , cantidad} = req.body;
@@ -93,7 +80,7 @@ export const updateStock = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-//Elimina un equipo informatico por id
+//Elimina un producto por id
 export const deleteProducto = async (req, res) => {
   try {
     const [result] = await pool.query(

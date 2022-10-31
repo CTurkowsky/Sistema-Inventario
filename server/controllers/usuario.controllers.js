@@ -1,8 +1,5 @@
 import { Router } from 'express';
 import { pool } from '../db.js';
-
-// Consulta por todos los equipos informaticos
-
 export const getUsuarios = async (req, res) => {
   try {
     const [result] = await pool.query('SELECT * FROM USUARIO');
@@ -11,8 +8,6 @@ export const getUsuarios = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-
-// Consulta por id un  equipo informatico
 
 export const getUsuario = async (req, res) => {
   try {
@@ -29,12 +24,12 @@ export const getUsuario = async (req, res) => {
   }
 };
 
-// Crea un equipo informatico
-
 export const createUsuario = async (req, res) => {
+
   try {
     const { nombre, apellidoPaterno, apellidoMaterno, correo, contrasena } =
       req.body;
+    // const passwordHash = await encrypt(contrasena);
     const [result] = await pool.query(
       'INSERT INTO USUARIO(nombre, apellidoPaterno, apellidoMaterno, correo, contrasena) VALUES (?,?,?,?,?)',
       [nombre, apellidoPaterno, apellidoMaterno, correo, contrasena]
@@ -53,8 +48,6 @@ export const createUsuario = async (req, res) => {
   }
 };
 
-//Actualiza un atributo de un equipo informatico
-
 export const updateUsuario = async (req, res) => {
   try {
     const result = await pool.query(
@@ -67,7 +60,6 @@ export const updateUsuario = async (req, res) => {
   }
 };
 
-//Elimina un equipo informatico por id
 export const deleteUsuario = async (req, res) => {
   try {
     const [result] = await pool.query(

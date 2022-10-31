@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import { pool } from '../db.js';
 
-
-
+//Crea una EntradaProducto
 export const createEntradaProducto = async (req, res) => {
   try {
     const { producto, entrada ,cantidad  } = req.body;
@@ -20,7 +19,7 @@ export const createEntradaProducto = async (req, res) => {
   }
 };
 
-
+//Obtiene EntradasProductos
 export const getEntradasProductos= async (req, res) => {
   try {
     const [result] = await pool.query(' select  ep.idEntradaProducto,ep.producto,  ep.entrada, p.nombreProducto, ep.cantidad,  date_format(e.fecha , "%d-%m-%Y") AS fecha, c.nombreCategoria, m.nombreMarca, u.nombre from entrada_producto ep INNER JOIN Producto p ON ep.producto = p.idProducto INNER JOIN Marca m ON p.marca = m.idMarca INNER JOIN Categoria c ON p.categoria = c.idCategoria INNER JOIN Entrada e ON ep.entrada = e.idEntrada INNER JOIN Usuario u ON e.usuarioEntrada = u.idUsuario order by idEntradaProducto; ');
@@ -30,7 +29,7 @@ export const getEntradasProductos= async (req, res) => {
   }
 };
 
-
+//Elimina EntradaProducto
 export const deleteEntradaProducto = async (req, res) => {
   try {
     const [result] = await pool.query('DELETE FROM ENTRADA_PRODUCTO WHERE idEntradaProducto = ?', [
