@@ -1,71 +1,80 @@
 import { FormLayout } from '../../Layout/FormLayout';
-import { createProductoRequest } from '../../../api/producto.api';
+import {
+  createProductoRequest,
+  updateProductoRequest,
+} from '../../../api/producto.api';
 import { useMarcas, useCategorias, useProductos } from '../../../hooks';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useState, useEffect } from 'react';
+
 export const ProductoRegistro = () => {
   const { marcas } = useMarcas();
   const { productos, getProducto } = useProductos();
   const { categorias } = useCategorias();
- const [producto, setProducto] = useState({
-      nombreProducto: '',
-      stock: 0,
-      fecha: '',
-      categoria: '',
-      marca: '',
+  const [producto, setProducto] = useState({
+    nombreProducto: '',
+    stock: 0,
+    fecha: '',
+    categoria: '',
+    marca: '',
   });
   const params = useParams();
 
-    useEffect(() => {
+  useEffect(() => {
     const loadProducto = async () => {
       if (params.id) {
         const producto = await getProducto(params.id);
         console.log(producto);
-      // setProducto({
-      // nombreProducto: producto.nombreProducto,
-      // stock: producto.stock,
-      // fecha: producto.fecha,
-      // categoria: producto.nombreCategoria,
-      // marca: producto.nombreMarca,
-      // })
+        setProducto({
+        nombreProducto: producto.nombreProducto,
+        stock: producto.stock,
+        fecha: producto.fecha,
+        categoria: producto.nombreCategoria,
+        marca: producto.nombreMarca,
+        })
       }
     };
     loadProducto();
   }, []);
 
   const formik = useFormik({
-    initialValues: {
-      nombreProducto: '',
-      stock: 0,
-      fecha: '',
-      categoria: '',
-      marca: '',
-    },
+    initialValues: 
+      producto
+    ,
+    enableReinitialize: true,
     validationSchema: YUP.object({
       nombreProducto: YUP.string()
         .min(3, 'El nombre tener mas de 3 caracteres')
         .max(20, 'El nombre debe tener maximo  20 caracteres')
         .required('El nombre es requerido'),
-
       fecha: YUP.date().required('La fecha  es requerida'),
-
       categoria: YUP.string().required('La categoria es requerida'),
       marca: YUP.string().required('La marca es requerida'),
     }),
 
     onSubmit: async (values) => {
       try {
-        const response = await createProductoRequest(values);
+        if (params.id) {
+          const response = await updateProductoRequest(params.id, values);
+          Swal.fire({
+            title: 'Success!',
+            text: 'Se ha editado un producto',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+        } else {
+          const response = await createProductoRequest(values);
+          Swal.fire({
+            title: 'Success!',
+            text: 'Se ha registrado un producto',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+        }
         console.log(values);
-        Swal.fire({
-          title: 'Success!',
-          text: 'Se ha registrado un producto',
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-        });
         formik.resetForm();
       } catch (error) {
         Swal.fire({
@@ -158,7 +167,7 @@ export const ProductoRegistro = () => {
           ) : null}
           <div className='text-center mt-3'>
             <button type='submit' className='btn btn-primary btn-lg'>
-              Registrar
+              {params.id ? 'Editar' : 'Registrar'}
             </button>
           </div>
         </form>

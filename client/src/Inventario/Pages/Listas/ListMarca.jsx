@@ -60,7 +60,7 @@ export const ListMarca = () => {
                     <td>
                       <button
                         className='btn btn-warning m-2'
-                        onClick={() => navigate(`/edit/${marca.idMarca}`)}
+                        onClick={() => navigate(`/editmarca/${marca.idMarca}`)}
                       >
                         Editar
                       </button>

@@ -33,6 +33,20 @@ export const getCategorias= async (req, res) => {
 };
 
 
+export const getCategoria = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      'SELECT * FROM CATEGORIA WHERE idCategoria = ? ',
+      [req.params.id]
+    );
+    if (result.length == 0)
+      return res.status(404).json({ messagge: 'Categoria no encontrado' });
+
+    res.json(result[0]);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 //Elimina una categoria  por id
 export const deleteCategoria = async (req, res) => {
   try {
@@ -42,6 +56,18 @@ export const deleteCategoria = async (req, res) => {
     if (result.affectedRows === 0)
       return res.status(404).json({ message: 'Categoria no encontrado' });
     return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateCategoria = async (req, res) => {
+  try {
+    const result = await pool.query(
+      'UPDATE CATEGORIA SET ? WHERE idCategoria = ?',
+      [req.body, req.params.id]
+    );
+    res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

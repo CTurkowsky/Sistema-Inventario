@@ -1,15 +1,33 @@
 import { FormLayout } from '../../Layout/FormLayout';
-import { createMarcaRequest } from '../../../api/marca.api';
+import { createMarcaRequest, updateMarcaRequest } from '../../../api/marca.api';
 import { useFormik } from 'formik';
 import * as YUP from 'yup';
 import Swal from 'sweetalert2';
 import { useMarcas } from '../../../hooks';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 export const MarcaRegistro = () => {
-  const { marcas } = useMarcas();
+  const { marcas, getMarca } = useMarcas();
+  const [marca, setMarca] = useState({
+    nombreMarca: '',
+  });
+  const params = useParams();
+
+  useEffect(() => {
+    const loadMarca = async () => {
+      if (params.id) {
+        const marca = await getMarca(params.id);
+        console.log(marca);
+        setMarca({
+          nombreMarca: marca.nombreMarca
+        });
+      }
+    };
+    loadMarca();
+  }, []);
   const formik = useFormik({
-    initialValues: {
-      nombreMarca: '',
-    },
+    initialValues: marca,
+    enableReinitialize: true,
     validationSchema: YUP.object({
       nombreMarca: YUP.string()
         .min(2, 'El nombre tener mas de 2 caracteres')
@@ -19,20 +37,34 @@ export const MarcaRegistro = () => {
 
     onSubmit: async (values) => {
       try {
-        if (marcas.find((marca) => marca.nombreMarca === values.nombreMarca))
+        const soloMarcas = marcas.map((marca)=> marca.nombreMarca)
+        const matches = soloMarcas.filter((element)=> {
+          return values.nombreMarca.toLowerCase() == element.toLowerCase()
+        })
+        if (matches.length > 0)
           return Swal.fire({
             title: 'Error!',
             text: 'Marca ya existe',
             icon: 'error',
             confirmButtonText: 'Aceptar',
           });
-        const response = await createMarcaRequest(values);
-        Swal.fire({
-          title: 'Success!',
-          text: 'Se ha registrado una marca',
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-        });
+        if (params.id) {
+          const response = await updateMarcaRequest(params.id, values);
+          Swal.fire({
+            title: 'Success!',
+            text: 'Se ha editado una marca',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+        } else {
+          const response = await createMarcaRequest(values);
+          Swal.fire({
+            title: 'Success!',
+            text: 'Se ha registrado una marca',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+        }
         console.log(values);
         formik.resetForm();
       } catch (error) {
@@ -47,7 +79,7 @@ export const MarcaRegistro = () => {
   });
 
   return (
-    <FormLayout titulo='Registro Marca'>
+    <FormLayout titulo={params.id ? 'Editar Marca' : 'Registrar Marca'}>
       <form onSubmit={formik.handleSubmit}>
         <label className='form-floating my-2 p-2'>Marca</label>
         <input
@@ -65,10 +97,9 @@ export const MarcaRegistro = () => {
         ) : null}
         <div className='text-center my-5'>
           <button type='submit' className='btn btn-primary btn-lg'>
-            Registrar
+              {params.id ? 'Editar' : 'Registrar'}
           </button>
         </div>
       </form>
     </FormLayout>
-  );
-};
+  ); };

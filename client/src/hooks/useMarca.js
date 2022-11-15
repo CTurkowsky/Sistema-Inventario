@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getMarcasRequest, deleteMarcaRequest } from '../api/marca.api';
+import { getMarcasRequest, deleteMarcaRequest, getMarcaRequest, updateMarcaRequest } from '../api/marca.api';
 
 export const useMarcas = () => {
   const [marcas, setMarcas] = useState([]);
@@ -19,7 +19,23 @@ export const useMarcas = () => {
       console.error(error);
     }
   };
+  const getMarca = async (id) => {
+    try {
+      const response = await getMarcaRequest(id);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+ const updateMarca = async (id, newFields) => {
+    try {
+      const response = await updateMarcaRequest(id, newFields);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return {
-    marcas, deleteMarca
+    marcas, deleteMarca, getMarca, updateMarca
   };
 };

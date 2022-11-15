@@ -28,6 +28,21 @@ export const getMarcas = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+export const getMarca = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      'SELECT * FROM MARCA  WHERE idMarca = ? ',
+      [req.params.id]
+    );
+    if (result.length == 0)
+      return res.status(404).json({ messagge: 'Marca no encontrado' });
+
+    res.json(result[0]);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 
 //Elimina una Marca
 export const deleteMarca = async (req, res) => {
@@ -44,6 +59,18 @@ export const deleteMarca = async (req, res) => {
   }
 };
 
+
+export const updateMarca = async (req, res) => {
+  try {
+    const result = await pool.query(
+      'UPDATE MARCA SET ? WHERE idMarca = ?',
+      [req.body, req.params.id]
+    );
+    res.json(result);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 
 
 

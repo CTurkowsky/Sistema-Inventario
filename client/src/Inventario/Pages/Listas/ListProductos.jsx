@@ -99,7 +99,7 @@ export const ListProductos = () => {
                       <td>
                         <button
                           className='btn btn-warning m-2'
-                          onClick={() => navigate(`/edit/${idProducto}`)}
+                          onClick={() => navigate(`/editproducto/${idProducto}`)}
                         >
                           Editar
                         </button>

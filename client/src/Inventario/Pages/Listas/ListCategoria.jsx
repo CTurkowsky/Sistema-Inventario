@@ -63,7 +63,7 @@ export const ListCategoria = () => {
                       <button
                         className='btn btn-warning m-2'
                         onClick={() =>
-                          navigate(`/edit/${categoria.idCategoria}`)
+                          navigate(`/editcategoria/${categoria.idCategoria}`)
                         }
                       >
                         Editar

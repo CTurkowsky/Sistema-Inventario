@@ -26,7 +26,9 @@ export const AppRouter = () => {
   return (
     <Routes>
       <Route path='/*' element={<ProductoRegistro />} />
-      <Route path='/edit/:id' element={<ProductoRegistro />} />
+      <Route path='/editproducto/:id' element={<ProductoRegistro />} />
+      <Route path='/editmarca/:id' element={<MarcaRegistro />} />
+      <Route path='/editcategoria/:id' element={<CategoriaRegistro />} />
       <Route path='/list' element={<ListProductos />} />
       <Route path='/categorialist' element={<ListCategoria />} />
       <Route path='/marcalist' element={<ListMarca />} />

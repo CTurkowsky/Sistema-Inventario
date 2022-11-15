@@ -151,11 +151,21 @@ export const ProductoSalidaRegistro = () => {
           onBlur={formik.handleBlur}
         >
           {productos.map(
-            ({ idProducto, nombreProducto, nombreMarca, nombreCategoria }) => (
-              <option key={idProducto} value={idProducto}>
-                {nombreProducto + '-' + nombreCategoria + '-' + nombreMarca}
-              </option>
-            )
+            ({
+              idProducto,
+              nombreProducto,
+              nombreMarca,
+              nombreCategoria,
+              stock,
+            }) => {
+              if (stock > 0) {
+                return (
+                  <option key={idProducto} value={idProducto}>
+                    {nombreProducto + '-' + nombreCategoria + '-' + nombreMarca}
+                  </option>
+                );
+              }
+            }
           )}
         </select>
         {formik.touched.producto && formik.errors.producto ? (

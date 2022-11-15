@@ -19,7 +19,11 @@ export const AreaRegistro = () => {
 
     onSubmit: async (values) => {
       try {
-        if (areas.find((area) => area.nombreArea === values.nombreArea))
+        const soloAreas = areas.map((area)=> area.nombreArea)
+        const matches = soloAreas.filter((element)=> {
+          return values.nombreArea.toLowerCase() == element.toLowerCase()
+        })
+        if (matches.length > 0)
           return Swal.fire({
             title: 'Error!',
             text: 'Area ya existe',
