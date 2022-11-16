@@ -11,7 +11,7 @@ export const ListCategoria = () => {
       return categorias.slice(currentPage, currentPage + 10);
 
     const filtered = categorias.filter((categoria) =>
-      categoria.nombreCategoria.includes(search)
+      categoria.nombreCategoria.toLowerCase().includes(search.toLowerCase())
     );
     return filtered.slice(currentPage, currentPage + 10);
   };

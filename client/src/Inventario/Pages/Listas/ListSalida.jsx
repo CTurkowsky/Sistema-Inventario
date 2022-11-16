@@ -6,12 +6,13 @@ export const ListSalida = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState('');
+
   const filteredSalida = () => {
     if (search.length === 0)
       return salidas.slice(currentPage, currentPage + 10);
 
     const filtered = salidas.filter((salida) =>
-      salida.nombreProducto.includes(search)
+      salida.nombreArea.toLowerCase().includes(search.toLowerCase())
     );
     return filtered.slice(currentPage, currentPage + 10);
   };

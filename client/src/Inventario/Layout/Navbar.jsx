@@ -173,7 +173,10 @@ export const Navbar = () => {
                 </li>
 
                 <li>
-                  <RouterLink to='/productosalidaregistro' className='dropdown-item'>
+                  <RouterLink
+                    to='/productosalidaregistro'
+                    className='dropdown-item'
+                  >
                     Registro Producto Salida
                   </RouterLink>
                 </li>
@@ -183,7 +186,10 @@ export const Navbar = () => {
                   </RouterLink>
                 </li>
                 <li>
-                  <RouterLink to='/productosalidalist' className='dropdown-item'>
+                  <RouterLink
+                    to='/productosalidalist'
+                    className='dropdown-item'
+                  >
                     Lista Producto Salida
                   </RouterLink>
                 </li>
@@ -210,6 +216,11 @@ export const Navbar = () => {
                 <li>
                   <RouterLink to='/registro' className='dropdown-item'>
                     Registro
+                  </RouterLink>
+                </li>
+                <li>
+                  <RouterLink to='/usuariolist' className='dropdown-item'>
+                    Lista Usuario
                   </RouterLink>
                 </li>
               </ul>

@@ -9,7 +9,9 @@ export const ListArea = () => {
   const filteredAreas = () => {
     if (search.length === 0) return areas.slice(currentPage, currentPage + 10);
 
-    const filtered = areas.filter((area) => area.nombreArea.includes(search));
+    const filtered = areas.filter((area) =>
+      area.nombreArea.toLowerCase().includes(search.toLowerCase())
+    );
     return filtered.slice(currentPage, currentPage + 10);
   };
 

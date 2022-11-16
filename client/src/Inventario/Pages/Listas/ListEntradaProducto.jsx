@@ -11,7 +11,7 @@ export const ListEntradaProducto = () => {
       return entradasproductos.slice(currentPage, currentPage + 10);
 
     const filtered = entradasproductos.filter((entrada) =>
-      entrada.nombreProducto.includes(search)
+      entrada.nombreProducto.toLowerCase().includes(search.toLowerCase())
     );
     return filtered.slice(currentPage, currentPage + 10);
   };

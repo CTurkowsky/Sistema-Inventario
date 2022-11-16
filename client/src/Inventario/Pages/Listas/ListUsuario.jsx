@@ -1,23 +1,23 @@
-import { useMarcas } from '../../../hooks';
+import { useUsuarios } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-export const ListMarca = () => {
-  const { marcas, deleteMarca } = useMarcas();
+export const ListUsuario = () => {
+  const { usuarios, deleteMarca } = useUsuarios();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState('');
-  const filteredMarca = () => {
-    if (search.length === 0) return marcas.slice(currentPage, currentPage + 10);
+  const filteredUsuario = () => {
+    if (search.length === 0) return usuarios.slice(currentPage, currentPage + 10);
 
-    const filtered = marcas.filter((marca) =>
-      marca.nombreMarca.toLowerCase().includes(search.toLowerCase())
+    const filtered = usuarios.filter((usuario) =>
+      usuario.nombre.toLowerCase().includes(search.toLowerCase())
     );
     return filtered.slice(currentPage, currentPage + 10);
   };
 
   const nextPage = () => {
     if (
-      marcas.filter((marca) => marca.nombreMarca.includes(search)).length >
+      usuarios.filter((usuario) => usuario.nombre.includes(search)).length >
       currentPage + 10
     )
       setCurrentPage(currentPage + 10);
@@ -38,7 +38,7 @@ export const ListMarca = () => {
             <input
               type='text'
               className='mb-2 form-control'
-              placeholder='Burcar Marca'
+              placeholder='Burcar Usuario'
               value={search}
               onChange={onSearchChange}
             />
@@ -47,16 +47,23 @@ export const ListMarca = () => {
               <thead>
                 <tr>
                   <th scope='col'>ID</th>
-                  <th scope='col'>Nombre Marca</th>
-                  <th scope='col'>Acciones</th>
+                  <th scope='col'>Nombre</th>
+                  <th scope='col'>Apellido Paterno</th>
+                  <th scope='col'>Apellido Materno</th>
+                  <th scope='col'>Correo</th>
+                  <th scope='col'>Contrasena</th>
                 </tr>
               </thead>
 
               <tbody>
-                {filteredMarca().map((marca) => (
-                  <tr key={marca.idMarca}>
-                    <th scope='row'>{marca.idMarca}</th>
-                    <td>{marca.nombreMarca}</td>
+                {filteredUsuario().map((usuario) => (
+                  <tr key={usuario.idUsuario}>
+                    <th scope='row'>{usuario.idUsuario}</th>
+                    <td>{usuario.nombre}</td>
+                    <td>{usuario.apellidoPaterno}</td>
+                    <td>{usuario.apellidoMaterno}</td>
+                    <td>{usuario.correo}</td>
+                    <td>{usuario.contrasena}</td>
                     <td>
                       <button
                         className='btn btn-warning m-2'
@@ -101,3 +108,4 @@ export const ListMarca = () => {
     </>
   );
 };
+

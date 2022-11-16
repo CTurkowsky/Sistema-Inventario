@@ -11,7 +11,7 @@ export const ListProductoSalida = () => {
       return productossalidas.slice(currentPage, currentPage + 10);
 
     const filtered = productossalidas.filter((salida) =>
-      salida.nombreProducto.includes(search)
+      salida.nombreProducto.toLowerCase().includes(search.toLowerCase())
     );
     return filtered.slice(currentPage, currentPage + 10);
   };

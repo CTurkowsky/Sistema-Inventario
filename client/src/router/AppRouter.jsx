@@ -19,6 +19,7 @@ import {
   ListCategoria,
   ListMarca,
   ListArea,
+  ListUsuario
 } from '../Inventario/Pages/Listas';
 import { EntradaRegistro } from '../Inventario/Pages/Registros/EntradaRegistro';
 
@@ -37,6 +38,7 @@ export const AppRouter = () => {
       <Route path='/productosalidalist' element={<ListProductoSalida />} />
       <Route path='/arealist' element={<ListArea />} />
       <Route path='/salidalist' element={<ListSalida />} />
+      <Route path='/usuariolist' element={<ListUsuario/>} />
       <Route path='/marca' element={<MarcaRegistro />} />
       <Route path='/categoria' element={<CategoriaRegistro />} />
       <Route path='/entradaregistro' element={<EntradaRegistro />} />
