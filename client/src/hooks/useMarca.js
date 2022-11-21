@@ -9,7 +9,7 @@ export const useMarcas = () => {
       setMarcas(response.data);
     };
     getMarcas();
-  }, []);
+  }, [marcas]);
 
  const deleteMarca = async (id) => {
     try {

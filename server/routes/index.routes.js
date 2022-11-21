@@ -8,5 +8,9 @@ router.get('/ping', async(req, res) => {
     console.log(rows);
     res.json(rows);
 });
+router.get('/',(req, res) => {
+    res.send('Welcome to Server');
+});
+
 
 export default router;
